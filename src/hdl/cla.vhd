@@ -36,11 +36,11 @@ architecture rtl of cla is
 
   component full_adder is
     port (
-      x:		in	std_ulogic;
-      y:		in	std_ulogic;
-      cin:	in	std_ulogic; -- carry in
-      sum:	out std_ulogic;
-      cout:	out std_ulogic  -- carry out
+      x    : in	 std_ulogic;
+      y    : in	 std_ulogic;
+      cin  : in	 std_ulogic; -- carry in
+      sum  : out std_ulogic;
+      cout : out std_ulogic  -- carry out
     );
   end component full_adder;
 
@@ -57,7 +57,7 @@ begin
         x    => x(i),
         y    => y(i),
         cin  => C(i),
-        sum  => S(I),
+        sum  => S(i),
         cout => open
       );
   end generate FA_gen;
