@@ -19,11 +19,11 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 library ieee;
-use ieee.std_logic_1164.all; 	-- std_logic
+use ieee.std_logic_1164.all;
 
 entity cla is
   generic (
-    n : natural := 32                             -- number of bits
+    n : natural := 32                             -- input size (default is 32 bits)
   );
   port (
     x     : in  std_ulogic_vector(n-1 downto 0);  -- first binary number to sum

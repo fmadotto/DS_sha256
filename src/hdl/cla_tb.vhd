@@ -35,7 +35,7 @@ architecture behav of cla_tb is
  
   component cla is
     generic (
-      n : natural := 3                              -- number of bits
+      n : natural := 3                              -- input size (default is 32 bits)
     );
     port (
       x     : in  std_ulogic_vector(n-1 downto 0);  -- first binary number to sum

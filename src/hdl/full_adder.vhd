@@ -19,7 +19,7 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 library ieee;
-use ieee.std_logic_1164.all; 	-- std_logic
+use ieee.std_logic_1164.all;
 
 entity full_adder is
   port (
