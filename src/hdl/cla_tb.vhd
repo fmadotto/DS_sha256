@@ -1,5 +1,6 @@
 -- Copyright (c) 2016 Federico Madotto and Coline Doebelin
 -- federico.madotto (at) gmail.com
+-- coline.doebelin (at) gmail.com
 -- https://github.com/fmadotto/DS_bitcoin_miner
 
 -- cla_tb.vhd is part of DS_bitcoin_miner.

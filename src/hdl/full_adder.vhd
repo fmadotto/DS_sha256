@@ -1,5 +1,6 @@
 -- Copyright (c) 2016 Federico Madotto and Coline Doebelin
 -- federico.madotto (at) gmail.com
+-- coline.doebelin (at) gmail.com
 -- https://github.com/fmadotto/DS_bitcoin_miner
 
 -- full_adder.vhd is part of DS_bitcoin_miner.
@@ -16,7 +17,6 @@
 
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 
 library ieee;
 use ieee.std_logic_1164.all; 	-- std_logic

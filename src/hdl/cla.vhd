@@ -1,5 +1,6 @@
 -- Copyright (c) 2016 Federico Madotto and Coline Doebelin
 -- federico.madotto (at) gmail.com
+-- coline.doebelin (at) gmail.com
 -- https://github.com/fmadotto/DS_bitcoin_miner
 
 -- cla.vhd is part of DS_bitcoin_miner.
@@ -10,7 +11,7 @@
 -- (at your option) any later version.
 
 -- DS_bitcoin_miner is distributed in the hope that it will be useful,
--- but WITHOUT ANY WARRANTmodelY; without even the implied warranty of
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
 -- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -- GNU General Public License for more details.
 
