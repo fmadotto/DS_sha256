@@ -26,9 +26,9 @@ entity register is
     n : natural := 32                           -- input size (default is 32 bits)
   );
   port(
-    clk  : in  std_ulogic;                      -- clock signal
-    rstn : in  std_ulogic;                      -- reset# signal
-    en   : in  std_ulogic;                      -- enable signal
+    clk  : in  std_ulogic;                      -- clock
+    rstn : in  std_ulogic;                      -- asynchronous active low reset
+    en   : in  std_ulogic;                      -- enable
     d    : in  std_ulogic_vector(n-1 downto 0); -- data in	
     q    : out std_ulogic_vector(n-1 downto 0)  -- data out
   );
