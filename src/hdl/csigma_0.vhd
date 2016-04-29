@@ -3,7 +3,7 @@
 -- coline.doebelin (at) gmail.com
 -- https://github.com/fmadotto/DS_bitcoin_miner
 
--- maj.vhd is part of DS_bitcoin_miner.
+-- csigma_0.vhd is part of DS_bitcoin_miner.
 
 -- DS_bitcoin_miner is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -21,19 +21,17 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity maj is
+entity csigma_0 is
   port (
     x : in  std_ulogic_vector(31 downto 0); -- first binary input
-    y : in 	std_ulogic_vector(31 downto 0); -- second binary input
-    z : in 	std_ulogic_vector(31 downto 0); -- third binary input
     o : out std_ulogic_vector(31 downto 0)  -- output
   );
-end entity maj;
+end entity csigma_0;
 
-architecture behav of maj is
+architecture behav of csigma_0 is
 begin
-  process(x, y, z)            -- the process is woken up whenever the inputs change
+  process(x)            -- the process is woken up whenever the input change
   begin
-      o <= (x and y) xor (x and z) xor (y and z);
+      o <= (x ror 2) xor (x ror 13) xor (x ror 22);
   end process;
 end architecture behav;
