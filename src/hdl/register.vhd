@@ -3,7 +3,7 @@
 -- coline.doebelin (at) gmail.com
 -- https://github.com/fmadotto/DS_bitcoin_miner
 
--- register.vhd is part of DS_bitcoin_miner.
+-- nbits_register.vhd is part of DS_bitcoin_miner.
 
 -- DS_bitcoin_miner is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity register is
+entity nbits_register is
   generic (
     n : natural := 32                           -- input size (default is 32 bits)
   );
@@ -32,9 +32,9 @@ entity register is
     d    : in  std_ulogic_vector(n-1 downto 0); -- data in	
     q    : out std_ulogic_vector(n-1 downto 0)  -- data out
   );
-end entity register;
+end entity nbits_register;
 
-architecture behav of register is
+architecture behav of nbits_register is
 begin
   process (clk, rstn)            -- asynchronous reset
   begin

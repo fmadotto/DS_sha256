@@ -46,7 +46,7 @@ architecture rtl of expander is
     );
   end component mux_2_to_1;
 
-  component register is
+  component nbits_register is
     generic(
       n : natural := 32                           -- input size (default is 32 bits)
     );
@@ -57,7 +57,7 @@ architecture rtl of expander is
       d    : in  std_ulogic_vector(n-1 downto 0); -- data in  
       q    : out std_ulogic_vector(n-1 downto 0)  -- data out
     );
-  end component register;
+  end component nbits_register;
 
   component sigma_0 is
     port (
@@ -115,7 +115,7 @@ architecture rtl of expander is
          exp_reg13_out,
          exp_reg14_out,
          exp_reg15_out,
-         exp_reg16_out     : std_logic_uvector(31 downto 0); -- registers outputs
+         exp_reg16_out     : std_logic_uvector(31 downto 0); -- nbits_registers outputs
   signal exp_sigma_01_out,
          exp_sigma_11_out  : std_logic_uvector(31 downto 0); -- sigma functions outputs
   signal exp_csa1_sum_out,
@@ -137,7 +137,7 @@ begin
       o => exp_mux1_out
     );
 
-  exp_reg1 : register
+  exp_reg1 : nbits_register
     generic map (
       n => 32
     )
@@ -149,7 +149,7 @@ begin
       q => exp_reg1_out 
     );
 
-  exp_reg2 : register
+  exp_reg2 : nbits_register
     generic map (
       n => 32
     )
@@ -161,7 +161,7 @@ begin
       q => exp_reg2_out 
     );
 
-  exp_reg3 : register
+  exp_reg3 : nbits_register
     generic map (
       n => 32
     )
@@ -173,7 +173,7 @@ begin
       q => exp_reg3_out 
     );
 
-  exp_reg4 : register
+  exp_reg4 : nbits_register
     generic map (
       n => 32
     )
@@ -185,7 +185,7 @@ begin
       q => exp_reg4_out 
     );
 
-  exp_reg5 : register
+  exp_reg5 : nbits_register
     generic map (
       n => 32
     )
@@ -197,7 +197,7 @@ begin
       q => exp_reg5_out 
     );
 
-  exp_reg6 : register
+  exp_reg6 : nbits_register
     generic map (
       n => 32
     )
@@ -209,7 +209,7 @@ begin
       q => exp_reg6_out 
     );
 
-  exp_reg7 : register
+  exp_reg7 : nbits_register
     generic map (
       n => 32
     )
@@ -221,7 +221,7 @@ begin
       q => exp_reg7_out 
     );
 
-  exp_reg8 : register
+  exp_reg8 : nbits_register
     generic map (
       n => 32
     )
@@ -233,7 +233,7 @@ begin
       q => exp_reg8_out 
     );
 
-  exp_reg9 : register
+  exp_reg9 : nbits_register
     generic map (
       n => 32
     )
@@ -245,7 +245,7 @@ begin
       q => exp_reg9_out 
     );
 
-  exp_reg10 : register
+  exp_reg10 : nbits_register
     generic map (
       n => 32
     )
@@ -257,7 +257,7 @@ begin
       q => exp_reg10_out 
     );
 
-  exp_reg11 : register
+  exp_reg11 : nbits_register
     generic map (
       n => 32
     )
@@ -269,7 +269,7 @@ begin
       q => exp_reg11_out 
     );
 
-  exp_reg12 : register
+  exp_reg12 : nbits_register
     generic map (
       n => 32
     )
@@ -281,7 +281,7 @@ begin
       q => exp_reg12_out 
     );
 
-  exp_reg13 : register
+  exp_reg13 : nbits_register
     generic map (
       n => 32
     )
@@ -293,7 +293,7 @@ begin
       q => exp_reg13_out 
     );
 
-  exp_reg14 : register
+  exp_reg14 : nbits_register
     generic map (
       n => 32
     )
@@ -305,7 +305,7 @@ begin
       q => exp_reg14_out 
     );
 
-  exp_reg15 : register
+  exp_reg15 : nbits_register
     generic map (
       n => 32
     )
@@ -317,7 +317,7 @@ begin
       q => exp_reg15_out 
     );
 
-  exp_reg16 : register
+  exp_reg16 : nbits_register
     generic map (
       n => 32
     )

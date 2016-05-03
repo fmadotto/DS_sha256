@@ -62,7 +62,7 @@ architecture rtl of compressor is
     );
   end component mux_2_to_1;
 
-  component register is
+  component nbits_register is
     generic (
       n : natural := 32                           -- input size (default is 32 bits)
     );
@@ -73,7 +73,7 @@ architecture rtl of compressor is
       d    : in  std_ulogic_vector(n-1 downto 0); -- data in  
       q    : out std_ulogic_vector(n-1 downto 0)  -- data out
     );
-  end component register;
+  end component nbits_register;
 
   component csigma_0 is
     port (
@@ -148,7 +148,7 @@ architecture rtl of compressor is
          com_regE_out,
          com_regF_out,
          com_regG_out,
-         com_regH_out      : std_logic_uvector(31 downto 0); -- registers outputs
+         com_regH_out      : std_logic_uvector(31 downto 0); -- nbits_registers outputs
   signal com_csigma_01_out,
          com_csigma_11_out : std_logic_uvector(31 downto 0); -- capital sigma functions outputs
   signal com_ch1_out       : std_logic_uvector(31 downto 0); -- Ch function output
@@ -380,7 +380,7 @@ begin
       o => com_muxH_out
     );
 
-  com_regA : register
+  com_regA : nbits_register
     generic map (
       n => 32
     )
@@ -392,7 +392,7 @@ begin
       q => com_regA_out
     );
 
-  com_regB : register
+  com_regB : nbits_register
     generic map (
       n => 32
     )
@@ -404,7 +404,7 @@ begin
       q => com_regB_out
     );
 
-  com_regC : register
+  com_regC : nbits_register
     generic map (
       n => 32
     )
@@ -416,7 +416,7 @@ begin
       q => com_regC_out
     );
 
-  com_regD : register
+  com_regD : nbits_register
     generic map (
       n => 32
     )
@@ -428,7 +428,7 @@ begin
       q => com_regD_out
     );
 
-  com_regE : register
+  com_regE : nbits_register
     generic map (
       n => 32
     )
@@ -440,7 +440,7 @@ begin
       q => com_regE_out
     );
 
-  com_regF : register
+  com_regF : nbits_register
     generic map (
       n => 32
     )
@@ -452,7 +452,7 @@ begin
       q => com_regF_out
     );
 
-  com_regG : register
+  com_regG : nbits_register
     generic map (
       n => 32
     )
@@ -464,7 +464,7 @@ begin
       q => com_regG_out
     );
 
-  com_regH : register
+  com_regH : nbits_register
     generic map (
       n => 32
     )
