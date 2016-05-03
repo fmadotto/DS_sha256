@@ -140,7 +140,7 @@ architecture rtl of compressor is
          com_muxE_out,
          com_muxF_out,
          com_muxG_out,
-         com_muxH_out      : std_logic_uvector(31 downto 0); -- multiplexers outputs
+         com_muxH_out      : std_ulogic_vector(31 downto 0); -- multiplexers outputs
   signal com_regA_out,
          com_regB_out,
          com_regC_out,
@@ -148,11 +148,11 @@ architecture rtl of compressor is
          com_regE_out,
          com_regF_out,
          com_regG_out,
-         com_regH_out      : std_logic_uvector(31 downto 0); -- nbits_registers outputs
+         com_regH_out      : std_ulogic_vector(31 downto 0); -- nbits_registers outputs
   signal com_csigma_01_out,
-         com_csigma_11_out : std_logic_uvector(31 downto 0); -- capital sigma functions outputs
-  signal com_ch1_out       : std_logic_uvector(31 downto 0); -- Ch function output
-  signal com_maj1_out      : std_logic_uvector(31 downto 0); -- Maj function output
+         com_csigma_11_out : std_ulogic_vector(31 downto 0); -- capital sigma functions outputs
+  signal com_ch1_out       : std_ulogic_vector(31 downto 0); -- Ch function output
+  signal com_maj1_out      : std_ulogic_vector(31 downto 0); -- Maj function output
   signal com_csa1_sum_out,
          com_csa1_cout_out,
          com_csa2_sum_out,
@@ -164,9 +164,9 @@ architecture rtl of compressor is
          com_csa5_sum_out,
          com_csa5_cout_out,
          com_csa6_sum_out,
-         com_csa6_cout_out : std_logic_uvector(31 downto 0); -- carry-save adders outputs
+         com_csa6_cout_out : std_ulogic_vector(31 downto 0); -- carry-save adders outputs
   signal com_cla1_out,
-         com_cla2_out      : std_logic_uvector(31 downto 0); -- carry look-ahead adders outputs
+         com_cla2_out      : std_ulogic_vector(31 downto 0); -- carry look-ahead adders outputs
 
 begin
 
