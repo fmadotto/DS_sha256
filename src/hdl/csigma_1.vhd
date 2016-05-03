@@ -32,6 +32,6 @@ architecture behav of csigma_1 is
 begin
   process (x)            -- the process is woken up whenever the input change
   begin
-      o <= (x ror 6) xor (x ror 11) xor (x ror 25);
+      o <= to_stdulogicvector((to_bitvector(x) ror 6) xor (to_bitvector(x) ror 11) xor (to_bitvector(x) ror 25));
   end process;
 end architecture behav;

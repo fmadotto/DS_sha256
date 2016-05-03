@@ -32,6 +32,6 @@ architecture behav of sigma_1 is
 begin
   process(x)            -- the process is woken up whenever the input change
   begin
-      o <= (x ror 17) xor (x ror 19) xor (x srl 10);
+      o <= to_stdulogicvector((to_bitvector(x) ror 17) xor (to_bitvector(x) ror 19) xor (to_bitvector(x) srl 10));
   end process;
 end architecture behav;
