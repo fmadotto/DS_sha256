@@ -63,10 +63,10 @@ architecture rtl of compressor is
   end component mux_2_to_1;
 
   component register is
-    generic(
+    generic (
       n : natural := 32                           -- input size (default is 32 bits)
     );
-    port(
+    port (
       clk  : in  std_ulogic;                      -- clock
       rstn : in  std_ulogic;                      -- asynchronous active low reset
       en   : in  std_ulogic;                      -- enable

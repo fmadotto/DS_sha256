@@ -30,7 +30,7 @@ end entity csigma_0;
 
 architecture behav of csigma_0 is
 begin
-  process(x)            -- the process is woken up whenever the input change
+  process (x)            -- the process is woken up whenever the input change
   begin
       o <= (x ror 2) xor (x ror 13) xor (x ror 22);
   end process;

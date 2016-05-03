@@ -22,10 +22,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity register is
-  generic(
+  generic (
     n : natural := 32                           -- input size (default is 32 bits)
   );
-  port(
+  port (
     clk  : in  std_ulogic;                      -- clock
     rstn : in  std_ulogic;                      -- asynchronous active low reset
     en   : in  std_ulogic;                      -- enable
@@ -36,7 +36,7 @@ end entity register;
 
 architecture behav of register is
 begin
-  process(clk, rstn)            -- asynchronous reset
+  process (clk, rstn)            -- asynchronous reset
   begin
     
     if rstn = '0' then

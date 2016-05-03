@@ -35,7 +35,7 @@ end entity mux_2_to_1;
 
 architecture behav of mux_2_to_1 is
 begin
-  process(x, y, s)            -- the process is woken up whenever the inputs or the select signal change
+  process (x, y, s)            -- the process is woken up whenever the inputs or the select signal change
   begin
     case s is
       when '0' =>
