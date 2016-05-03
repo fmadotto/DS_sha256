@@ -175,10 +175,10 @@ begin
       n => 32
     )
     port map (
-      x    => W_i_j;
-      y    => com_regH_out;
-      z    => K_j;
-      sum  => com_csa1_sum_out;
+      x    => W_i_j,
+      y    => com_regH_out,
+      z    => K_j,
+      sum  => com_csa1_sum_out,
       cout => com_csa1_cout_out
     );
 
@@ -187,10 +187,10 @@ begin
       n => 32
     )
     port map (
-      x    => com_csa1_sum_out;
-      y    => com_csa1_cout_out;
-      z    => com_ch1_out;
-      sum  => com_csa2_sum_out;
+      x    => com_csa1_sum_out,
+      y    => com_csa1_cout_out,
+      z    => com_ch1_out,
+      sum  => com_csa2_sum_out,
       cout => com_csa2_cout_out
     );
 
@@ -199,10 +199,10 @@ begin
       n => 32
     )
     port map (
-      x    => com_csa2_sum_out;
-      y    => com_csa2_cout_out;
-      z    => com_ch1_out;
-      sum  => com_csa3_sum_out;
+      x    => com_csa2_sum_out,
+      y    => com_csa2_cout_out,
+      z    => com_ch1_out,
+      sum  => com_csa3_sum_out,
       cout => com_csa3_cout_out
     );
 
@@ -211,10 +211,10 @@ begin
       n => 32
     )
     port map (
-      x    => com_csa3_sum_out;
-      y    => com_csa3_cout_out;
-      z    => com_maj1_out;
-      sum  => com_csa4_sum_out;
+      x    => com_csa3_sum_out,
+      y    => com_csa3_cout_out,
+      z    => com_maj1_out,
+      sum  => com_csa4_sum_out,
       cout => com_csa4_cout_out
     );
 
@@ -223,10 +223,10 @@ begin
       n => 32
     )
     port map (
-      x    => com_csa4_sum_out;
-      y    => com_csa4_cout_out;
-      z    => com_csigma_01_out;
-      sum  => com_csa5_sum_out;
+      x    => com_csa4_sum_out,
+      y    => com_csa4_cout_out,
+      z    => com_csigma_01_out,
+      sum  => com_csa5_sum_out,
       cout => com_csa5_cout_out
     );
 
@@ -235,10 +235,10 @@ begin
       n => 32
     )
     port map (
-      x    => com_csa3_sum_out;
-      y    => com_csa3_cout_out;
-      z    => com_regD_out;
-      sum  => com_csa6_sum_out;
+      x    => com_csa3_sum_out,
+      y    => com_csa3_cout_out,
+      z    => com_regD_out,
+      sum  => com_csa6_sum_out,
       cout => com_csa6_cout_out
     );
 
@@ -247,9 +247,9 @@ begin
       n => 32
     )
     port map (
-      x    => com_csa5_sum_out;
-      y    => com_csa5_cout_out;
-      sum  => com_cla1_out;
+      x    => com_csa5_sum_out,
+      y    => com_csa5_cout_out,
+      sum  => com_cla1_out,
       cout => open
     );
 
@@ -258,37 +258,37 @@ begin
       n => 32
     )
     port map (
-      x    => com_csa6_sum_out;
-      y    => com_csa6_cout_out;
-      sum  => com_cla2_out;
+      x    => com_csa6_sum_out,
+      y    => com_csa6_cout_out,
+      sum  => com_cla2_out,
       cout => open
     );
 
   com_maj1 : maj
     port map (
-      x => com_regA_out;
-      y => com_regB_out;
-      z => com_regC_out;
+      x => com_regA_out,
+      y => com_regB_out,
+      z => com_regC_out,
       o => com_maj1_out
     );
 
   com_ch1 : ch
     port map (
-      x => com_regE_out;
-      y => com_regF_out;
-      z => com_regG_out;
+      x => com_regE_out,
+      y => com_regF_out,
+      z => com_regG_out,
       o => com_ch1_out
     );
 
   com_csigma_01 : csigma_0
     port map (
-      x => com_regA_out;
+      x => com_regA_out,
       o => com_csigma_01_out
     );
 
   com_csigma_11 : csigma_1
     port map (
-      x => com_regE_out;
+      x => com_regE_out,
       o => com_csigma_11_out
     );
 
@@ -297,9 +297,9 @@ begin
       n => 32
     )
     port map (
-      x => com_cla1_out;
-      y => H_iminus1_A;
-      s => com_sel1;
+      x => com_cla1_out,
+      y => H_iminus1_A,
+      s => com_sel1,
       o => com_muxA_out
     );
 
@@ -308,9 +308,9 @@ begin
       n => 32
     )
     port map (
-      x => com_regA_out;
-      y => H_iminus1_B;
-      s => com_sel1;
+      x => com_regA_out,
+      y => H_iminus1_B,
+      s => com_sel1,
       o => com_muxB_out
     );
 
@@ -319,9 +319,9 @@ begin
       n => 32
     )
     port map (
-      x => com_regB_out;
-      y => H_iminus1_C;
-      s => com_sel1;
+      x => com_regB_out,
+      y => H_iminus1_C,
+      s => com_sel1,
       o => com_muxC_out
     );
 
@@ -330,9 +330,9 @@ begin
       n => 32
     )
     port map (
-      x => com_regC_out;
-      y => H_iminus1_D;
-      s => com_sel1;
+      x => com_regC_out,
+      y => H_iminus1_D,
+      s => com_sel1,
       o => com_muxD_out
     );
 
@@ -341,9 +341,9 @@ begin
       n => 32
     )
     port map (
-      x => com_cla2_out;
-      y => H_iminus1_E;
-      s => com_sel1;
+      x => com_cla2_out,
+      y => H_iminus1_E,
+      s => com_sel1,
       o => com_muxE_out
     );
 
@@ -352,9 +352,9 @@ begin
       n => 32
     )
     port map (
-      x => com_regE_out;
-      y => H_iminus1_F;
-      s => com_sel1;
+      x => com_regE_out,
+      y => H_iminus1_F,
+      s => com_sel1,
       o => com_muxF_out
     );
 
@@ -363,9 +363,9 @@ begin
       n => 32
     )
     port map (
-      x => com_regF_out;
-      y => H_iminus1_G;
-      s => com_sel1;
+      x => com_regF_out,
+      y => H_iminus1_G,
+      s => com_sel1,
       o => com_muxG_out
     );
 
@@ -374,9 +374,9 @@ begin
       n => 32
     )
     port map (
-      x => com_regG_out;
-      y => H_iminus1_H;
-      s => com_sel1;
+      x => com_regG_out,
+      y => H_iminus1_H,
+      s => com_sel1,
       o => com_muxH_out
     );
 
@@ -385,10 +385,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => com_muxA_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => com_muxA_out,
       q => com_regA_out
     );
 
@@ -397,10 +397,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => com_muxB_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => com_muxB_out,
       q => com_regB_out
     );
 
@@ -409,10 +409,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => com_muxC_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => com_muxC_out,
       q => com_regC_out
     );
 
@@ -421,10 +421,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => com_muxD_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => com_muxD_out,
       q => com_regD_out
     );
 
@@ -433,10 +433,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => com_muxE_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => com_muxE_out,
       q => com_regE_out
     );
 
@@ -445,10 +445,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => com_muxF_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => com_muxF_out,
       q => com_regF_out
     );
 
@@ -457,10 +457,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => com_muxG_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => com_muxG_out,
       q => com_regG_out
     );
 
@@ -469,10 +469,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => com_muxH_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => com_muxH_out,
       q => com_regH_out
     );
 

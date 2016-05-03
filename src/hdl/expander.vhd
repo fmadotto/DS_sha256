@@ -131,9 +131,9 @@ begin
       n => 32
     )
     port map (
-      x => M_i_j;
-      y => exp_cla1_out;
-      s => exp_sel1;
+      x => M_i_j,
+      y => exp_cla1_out,
+      s => exp_sel1,
       o => exp_mux1_out
     );
 
@@ -142,10 +142,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_mux1_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_mux1_out,
       q => exp_reg1_out 
     );
 
@@ -154,10 +154,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg1_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg1_out,
       q => exp_reg2_out 
     );
 
@@ -166,10 +166,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg2_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg2_out,
       q => exp_reg3_out 
     );
 
@@ -178,10 +178,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg3_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg3_out,
       q => exp_reg4_out 
     );
 
@@ -190,10 +190,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg4_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg4_out,
       q => exp_reg5_out 
     );
 
@@ -202,10 +202,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg5_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg5_out,
       q => exp_reg6_out 
     );
 
@@ -214,10 +214,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg6_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg6_out,
       q => exp_reg7_out 
     );
 
@@ -226,10 +226,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg7_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg7_out,
       q => exp_reg8_out 
     );
 
@@ -238,10 +238,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg8_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg8_out,
       q => exp_reg9_out 
     );
 
@@ -250,10 +250,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg9_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg9_out,
       q => exp_reg10_out 
     );
 
@@ -262,10 +262,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg10_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg10_out,
       q => exp_reg11_out 
     );
 
@@ -274,10 +274,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg11_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg11_out,
       q => exp_reg12_out 
     );
 
@@ -286,10 +286,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg12_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg12_out,
       q => exp_reg13_out 
     );
 
@@ -298,10 +298,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg13_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg13_out,
       q => exp_reg14_out 
     );
 
@@ -310,10 +310,10 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg14_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg14_out,
       q => exp_reg15_out 
     );
 
@@ -322,22 +322,22 @@ begin
       n => 32
     )
     port map (
-      clk => clk;
-      rstn => rstn;
-      en => '1';
-      d => exp_reg15_out;
+      clk => clk,
+      rstn => rstn,
+      en => '1',
+      d => exp_reg15_out,
       q => exp_reg16_out 
     );
 
   exp_sigma_01 : sigma_0
     port map (
-      x => exp_reg15_out;
+      x => exp_reg15_out,
       o => exp_sigma_01_out
     );
 
   exp_sigma_11 : sigma_1
     port map (
-      x => exp_reg2_out;
+      x => exp_reg2_out,
       o => exp_sigma_11_out
     );
 
@@ -346,10 +346,10 @@ begin
       n => 32
     )
     port map (
-      x    => exp_reg1_out;
-      y    => exp_sigma_01_out;
-      z    => exp_reg7_out;
-      sum  => exp_csa1_sum_out;
+      x    => exp_reg1_out,
+      y    => exp_sigma_01_out,
+      z    => exp_reg7_out,
+      sum  => exp_csa1_sum_out,
       cout => exp_csa1_cout_out
     );
 
@@ -358,10 +358,10 @@ begin
       n => 32
     )
     port map (
-      x    => exp_csa1_sum_out;
-      y    => exp_csa1_cout_out;
-      z    => exp_sigma_11_out;
-      sum  => exp_csa2_sum_out;
+      x    => exp_csa1_sum_out,
+      y    => exp_csa1_cout_out,
+      z    => exp_sigma_11_out,
+      sum  => exp_csa2_sum_out,
       cout => exp_csa2_cout_out
     );
 
@@ -370,9 +370,9 @@ begin
       n => 32
     )
     port map (
-      x    => exp_csa2_sum_out;
-      y    => exp_csa2_cout_out;
-      sum  => exp_cla1_out;
+      x    => exp_csa2_sum_out,
+      y    => exp_csa2_cout_out,
+      sum  => exp_cla1_out,
       cout => open
     );
 
