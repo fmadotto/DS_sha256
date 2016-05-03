@@ -99,7 +99,7 @@ architecture rtl of expander is
   end component cla;
 
   -- signals
-  signal exp_mux1_out      : std_logic_uvector(31 downto 0); -- multiplexer output
+  signal exp_mux1_out      : std_ulogic_vector(31 downto 0); -- multiplexer output
   signal exp_reg1_out,
          exp_reg2_out,
          exp_reg3_out,
@@ -115,14 +115,14 @@ architecture rtl of expander is
          exp_reg13_out,
          exp_reg14_out,
          exp_reg15_out,
-         exp_reg16_out     : std_logic_uvector(31 downto 0); -- nbits_registers outputs
+         exp_reg16_out     : std_ulogic_vector(31 downto 0); -- nbits_registers outputs
   signal exp_sigma_01_out,
-         exp_sigma_11_out  : std_logic_uvector(31 downto 0); -- sigma functions outputs
+         exp_sigma_11_out  : std_ulogic_vector(31 downto 0); -- sigma functions outputs
   signal exp_csa1_sum_out,
          exp_csa1_cout_out,
          exp_csa2_sum_out, 
-         exp_csa2_cout_out : std_logic_uvector(31 downto 0); -- carry-save adders outputs
-  signal exp_cla1_out      : std_logic_uvector(31 downto 0); -- carry look-ahead adders outputs
+         exp_csa2_cout_out : std_ulogic_vector(31 downto 0); -- carry-save adders outputs
+  signal exp_cla1_out      : std_ulogic_vector(31 downto 0); -- carry look-ahead adders outputs
 
 begin
 
