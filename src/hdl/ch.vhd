@@ -23,10 +23,10 @@ use ieee.std_logic_1164.all;
 
 entity ch is
   port (
-    x : in  std_ulogic_vector(n-1 downto 0); -- first binary input
-    y : in 	std_ulogic_vector(n-1 downto 0); -- second binary input
-    z : in 	std_ulogic_vector(n-1 downto 0); -- third binary input
-    o : out std_ulogic_vector(n-1 downto 0)  -- output
+    x : in  std_ulogic_vector(31 downto 0); -- first binary input
+    y : in 	std_ulogic_vector(31 downto 0); -- second binary input
+    z : in 	std_ulogic_vector(31 downto 0); -- third binary input
+    o : out std_ulogic_vector(31 downto 0)  -- output
   );
 end entity ch;
 

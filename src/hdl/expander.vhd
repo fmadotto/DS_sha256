@@ -19,9 +19,7 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 library ieee;
-use ieee.std_logic_1164.all; 	-- std_logic
-use ieee.std_logic_arith.all;	-- signed/unsigned, conv_integer(), conv_std_logic_vector(signal, no. bit)
-use ieee.numeric_std.all; 		-- to_integer()
+use ieee.std_logic_1164.all;
 
 entity expander is
   port (
@@ -101,34 +99,34 @@ architecture rtl of expander is
   end component cla;
 
   -- signals
-  signal exp_mux1_out : std_logic_uvector(31 downto 0); -- multiplexer output
+  signal exp_mux1_out      : std_logic_uvector(31 downto 0); -- multiplexer output
   signal exp_reg1_out,
-          exp_reg2_out,
-          exp_reg3_out,
-          exp_reg4_out,
-          exp_reg5_out,
-          exp_reg6_out,
-          exp_reg7_out,
-          exp_reg8_out,
-          exp_reg9_out,
-          exp_reg10_out,
-          exp_reg11_out,
-          exp_reg12_out,
-          exp_reg13_out,
-          exp_reg14_out,
-          exp_reg15_out,
-          exp_reg16_out : std_logic_uvector(31 downto 0); -- registers outputs
+         exp_reg2_out,
+         exp_reg3_out,
+         exp_reg4_out,
+         exp_reg5_out,
+         exp_reg6_out,
+         exp_reg7_out,
+         exp_reg8_out,
+         exp_reg9_out,
+         exp_reg10_out,
+         exp_reg11_out,
+         exp_reg12_out,
+         exp_reg13_out,
+         exp_reg14_out,
+         exp_reg15_out,
+         exp_reg16_out     : std_logic_uvector(31 downto 0); -- registers outputs
   signal exp_sigma_01_out,
-          exp_sigma_11_out : std_logic_uvector(31 downto 0); -- sigma functions outputs
+         exp_sigma_11_out  : std_logic_uvector(31 downto 0); -- sigma functions outputs
   signal exp_csa1_sum_out,
-          exp_csa1_cout_out,
-          exp_csa2_sum_out, 
-          exp_csa2_cout_out : std_logic_uvector(31 downto 0); -- carry-save adders outputs
-  signal exp_cla1_out : std_logic_uvector(31 downto 0); -- carry look-ahead adders outputs
+         exp_csa1_cout_out,
+         exp_csa2_sum_out, 
+         exp_csa2_cout_out : std_logic_uvector(31 downto 0); -- carry-save adders outputs
+  signal exp_cla1_out      : std_logic_uvector(31 downto 0); -- carry look-ahead adders outputs
 
 begin
 
-  exp_mux1: mux_2_to_1
+  exp_mux1 : mux_2_to_1
     generic map (
       n => 32
     )
@@ -147,7 +145,7 @@ begin
       clk => clk;
       rstn => rstn;
       en => '1';
-      d => exp_mux1_out exp_mux1_out;
+      d => exp_mux1_out;
       q => exp_reg1_out 
     );
 
@@ -159,7 +157,7 @@ begin
       clk => clk;
       rstn => rstn;
       en => '1';
-      d => exp_reg1_out exp_reg1_out;
+      d => exp_reg1_out;
       q => exp_reg2_out 
     );
 
@@ -171,7 +169,7 @@ begin
       clk => clk;
       rstn => rstn;
       en => '1';
-      d => exp_reg2_out ;
+      d => exp_reg2_out;
       q => exp_reg3_out 
     );
 
@@ -183,7 +181,7 @@ begin
       clk => clk;
       rstn => rstn;
       en => '1';
-      d => exp_reg3_out ;
+      d => exp_reg3_out;
       q => exp_reg4_out 
     );
 
@@ -195,7 +193,7 @@ begin
       clk => clk;
       rstn => rstn;
       en => '1';
-      d => exp_reg4_out ;
+      d => exp_reg4_out;
       q => exp_reg5_out 
     );
 
@@ -207,7 +205,7 @@ begin
       clk => clk;
       rstn => rstn;
       en => '1';
-      d => exp_reg5_out ;
+      d => exp_reg5_out;
       q => exp_reg6_out 
     );
 
@@ -219,7 +217,7 @@ begin
       clk => clk;
       rstn => rstn;
       en => '1';
-      d => exp_reg6_out ;
+      d => exp_reg6_out;
       q => exp_reg7_out 
     );
 
@@ -231,7 +229,7 @@ begin
       clk => clk;
       rstn => rstn;
       en => '1';
-      d => exp_reg7_out ;
+      d => exp_reg7_out;
       q => exp_reg8_out 
     );
 
@@ -243,7 +241,7 @@ begin
       clk => clk;
       rstn => rstn;
       en => '1';
-      d => exp_reg8_out ;
+      d => exp_reg8_out;
       q => exp_reg9_out 
     );
 
