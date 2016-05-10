@@ -39,7 +39,7 @@ begin
   begin
     
     if clk'event and clk = '1' then
-      start <= 0; -- this makes the output lasts for only one clock cycle
+      start <= '0'; -- this makes the output lasts for only one clock cycle
 
       if d = '1' then
         start <= d;
