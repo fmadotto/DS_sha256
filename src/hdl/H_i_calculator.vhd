@@ -50,7 +50,7 @@ entity H_i_calculator is
   );
 end entity H_i_calculator;
 
-architecture behav of H_i_calculator is
+architecture rtl of H_i_calculator is
   
   -- components
   component cla is
@@ -133,4 +133,26 @@ begin
       cout => open
     );
 
-end architecture behav;
+  Hcalc_claG : cla
+    generic map (
+      n => 32
+    )
+    port map (
+      x    => G_i,
+      y    => H_iminus1_G,
+      sum  => H_i_G,
+      cout => open
+    );
+
+  Hcalc_claH : cla
+    generic map (
+      n => 32
+    )
+    port map (
+      x    => H_i,
+      y    => H_iminus1_H,
+      sum  => H_i_H,
+      cout => open
+    );
+
+end architecture rtl;
