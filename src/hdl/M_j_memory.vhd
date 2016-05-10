@@ -52,7 +52,7 @@ begin
     if rstn = '0' then
       data_out <= (others => '0');
 
-    elsif clk'event and clk = '0' then -- falling edge!
+    elsif clk'event and clk = '1' then -- falling edge!
       if chip_selectn = '0' then
 
         -- writing
