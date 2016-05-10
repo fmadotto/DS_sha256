@@ -43,7 +43,7 @@ entity compressor is
     E_i,
     F_i,
     G_i,
-    H_i          : out std_ulogic_vector(31 downto 0) -- resulting hash value H_(i)
+    H_i          : out std_ulogic_vector(31 downto 0) -- A-F registers values
   );
 end entity compressor;
 
