@@ -30,8 +30,8 @@ entity M_j_memory is
   port (
     clk           : in  std_ulogic; -- clock
     rstn          : in  std_ulogic; -- asynchronous active low reset
-    chip_selectn  : in  std_ulogic; -- when asserted low, memory read and write operations are possible
-    write_enablen : in  std_ulogic; -- when asserted low, memory can be written
+    cs_n          : in  std_ulogic; -- chip select: when asserted low, memory read and write operations are possible
+    we_n          : in  std_ulogic; -- write enable: when asserted low, memory can be written
     address       : in  std_ulogic_vector(address_size-1 downto 0);
     data_in       : in  std_ulogic_vector(row_size-1 downto 0);
     data_out      : out std_ulogic_vector(row_size-1 downto 0)
@@ -52,11 +52,11 @@ begin
     if rstn = '0' then
       data_out <= (others => '0');
 
-    elsif clk'event and clk = '1' then -- falling edge!
-      if chip_selectn = '0' then
+    elsif clk'event and clk = '1' then
+      if cs_n = '0' then
 
         -- writing
-        if write_enablen = '0' then
+        if we_n = '0' then
           mem(to_integer(unsigned(address))) <= data_in;
 
         -- reading
