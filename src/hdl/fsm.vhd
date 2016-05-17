@@ -31,12 +31,13 @@ entity fsm is
     rstn               : in  std_ulogic;                    -- asynchronous active low reset
     start              : in  std_ulogic;                    -- start signal
     exp_sel1           : out std_ulogic;                    -- select signal for exp_mux1
-    com_sel1           : out std_ulogic;                    -- select signal for exp_mux1
+    com_sel1           : out std_ulogic;                    -- select signal for com_mux1
     M_j_memory_cs_n    : out std_ulogic;                    -- chip select: when asserted low, memory read and write operations are possible
     M_j_memory_we_n    : out std_ulogic;                    -- write enable: when asserted low, memory can be written
     M_j_memory_address : out std_ulogic_vector(3 downto 0); -- address
     reg_H_minus_1_en   : out std_ulogic;                    -- enable signal for the H(i-1) registers
     reg_H_minus_1_sel  : out std_ulogic;                    -- select signal for the H(i-1) registers
+    K_j_init           : out std_ulogic;                    -- init signal for the K_j constants feeder
     done               : out std_ulogic                     -- done signal
   );
 end entity fsm;
@@ -112,6 +113,7 @@ begin
         M_j_memory_address <= (others => 'Z');
         reg_H_minus_1_en   <= '0';
         reg_H_minus_1_sel  <= '0';
+        K_j_init           <= '0';
         done <= '0';
         
       when active =>
@@ -126,6 +128,10 @@ begin
           elsif present_state.counter = 1 then
             com_sel1           <= '0';
             reg_H_minus_1_en   <= '0';
+            K_j_init           <= '1';
+
+          elsif present_state.counter = 2 then
+            K_j_init           <= '0';
           end if;
 
         elsif present_state.counter = 16 then
