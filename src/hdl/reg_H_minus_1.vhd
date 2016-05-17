@@ -36,7 +36,7 @@ entity reg_H_minus_1 is
     H_i_E,
     H_i_F,
     H_i_G,
-    H_i_H             : in  std_ulogic_vector(31 downto 0) -- resulting hash value H_(i) from datapath (to be stored)
+    H_i_H             : in  std_ulogic_vector(31 downto 0); -- resulting hash value H_(i) from datapath (to be stored)
     H_iminus1_A,
     H_iminus1_B,
     H_iminus1_C,
