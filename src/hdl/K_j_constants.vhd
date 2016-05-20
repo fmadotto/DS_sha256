@@ -28,7 +28,7 @@ entity K_j_constants is
     clk      : in  std_ulogic; -- clock
     rstn     : in  std_ulogic; -- asynchronous active low reset
     K_j_init : in  std_ulogic; -- start signal for K_j
-    K_j      : out  std_ulogic_vector(31 downto 0) -- NIST-defined constants Kj
+    K_j      : out std_ulogic_vector(31 downto 0) -- NIST-defined constants Kj
   );
 end entity K_j_constants;
 

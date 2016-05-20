@@ -32,17 +32,16 @@ entity control_unit is
     exp_sel1_delayed    : out std_ulogic; -- select signal for exp_mux1
     com_sel1_delayed    : out std_ulogic; -- select signal for exp_mux1
 
-    -- M_j_memory ports
-    M_j_memory_cs_n     : out  std_ulogic; -- chip select: when asserted low, memory read and write operations are possible
-    M_j_memory_we_n     : out  std_ulogic; -- write enable: when asserted low, memory can be written
-    M_j_memory_address  : out  std_ulogic_vector(3 downto 0);
+    -- M_j_memory_dual ports
+    M_j_memory_rcs_n    : out std_ulogic; -- read chip select: when asserted low, memory can be read
+    M_j_memory_r_addr   : out std_ulogic_vector(3 downto 0);
 
     -- reg_H_minus_1 ports
-    reg_H_minus_1_en    : out  std_ulogic; -- enable signal for the H(i-1) registers
-    reg_H_minus_1_sel   : out  std_ulogic; -- select signal for the H(i-1) registers
+    reg_H_minus_1_en    : out std_ulogic; -- enable signal for the H(i-1) registers
+    reg_H_minus_1_sel   : out std_ulogic; -- select signal for the H(i-1) registers
     
     -- K_j_constants ports
-    K_j_init            : out  std_ulogic -- start signal for K_j
+    K_j_init            : out std_ulogic -- start signal for K_j
   );
 end entity control_unit;
 
@@ -56,9 +55,8 @@ architecture rtl of control_unit is
       start              : in  std_ulogic;                    -- start signal
       exp_sel1           : out std_ulogic;                    -- select signal for exp_mux1
       com_sel1           : out std_ulogic;                    -- select signal for com_mux1
-      M_j_memory_cs_n    : out std_ulogic;                    -- chip select: when asserted low, memory read and write operations are possible
-      M_j_memory_we_n    : out std_ulogic;                    -- write enable: when asserted low, memory can be written
-      M_j_memory_address : out std_ulogic_vector(3 downto 0); -- address
+      M_j_memory_rcs_n   : out std_ulogic;                    -- read chip select: when asserted low, memory can be read
+      M_j_memory_r_addr  : out std_ulogic_vector(3 downto 0); -- address
       reg_H_minus_1_en   : out std_ulogic;                    -- enable signal for the H(i-1) registers
       reg_H_minus_1_sel  : out std_ulogic;                    -- select signal for the H(i-1) registers
       K_j_init           : out std_ulogic;                    -- init signal for the K_j constants feeder
@@ -123,9 +121,8 @@ begin
       start              => start,
       exp_sel1           => cu_fsm_exp_sel1_out(0),
       com_sel1           => cu_fsm_com_sel1_out(0),
-      M_j_memory_cs_n    => M_j_memory_cs_n,   
-      M_j_memory_we_n    => M_j_memory_we_n,   
-      M_j_memory_address => M_j_memory_address,
+      M_j_memory_rcs_n   => M_j_memory_rcs_n,   
+      M_j_memory_r_addr  => M_j_memory_r_addr,
       reg_H_minus_1_en   => reg_H_minus_1_en,
       reg_H_minus_1_sel  => reg_H_minus_1_sel,
       K_j_init           => K_j_init,

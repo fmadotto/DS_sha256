@@ -35,7 +35,6 @@ entity data_path is
 
     -- compressor input ports
     com_sel1     : in  std_ulogic;                     -- select signal for com_muxA, ..., com_muxH
-    W_i_j        : in  std_ulogic_vector(31 downto 0); -- 32-bit W_i_j
     K_j          : in  std_ulogic_vector(31 downto 0); -- NIST-defined constants Kj
     H_iminus1_A,
     H_iminus1_B,
