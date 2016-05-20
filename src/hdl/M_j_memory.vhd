@@ -25,46 +25,45 @@ use ieee.numeric_std.all; -- to_integer()
 entity M_j_memory is
   generic (
     row_size      : natural := 32;
-    address_size  :	natural := 4
+    address_size  : natural := 4
   );
   port (
-    clk           : in  std_ulogic; -- clock
-    rstn          : in  std_ulogic; -- asynchronous active low reset
-    cs_n          : in  std_ulogic; -- chip select: when asserted low, memory read and write operations are possible
-    we_n          : in  std_ulogic; -- write enable: when asserted low, memory can be written
-    address       : in  std_ulogic_vector(address_size-1 downto 0);
-    data_in       : in  std_ulogic_vector(row_size-1 downto 0);
-    data_out      : out std_ulogic_vector(row_size-1 downto 0)
+    clk      : in  std_ulogic; -- clock
+    rcs_n    : in  std_ulogic; -- read chip select: when asserted low, memory can be read
+    wcs_n    : in  std_ulogic; -- write chip select: when asserted low, memory can be written if also we_n is low
+    we_n     : in  std_ulogic; -- write enable: when asserted low, memory can be written
+    r_addr   : in  std_ulogic_vector(address_size-1 downto 0);
+    w_addr   : in  std_ulogic_vector(address_size-1 downto 0);
+    data_in  : in  std_ulogic_vector(row_size-1 downto 0);
+    data_out : out std_ulogic_vector(row_size-1 downto 0)
   );
 
 end entity M_j_memory;
 
 architecture behav of M_j_memory is
 
-  type M_j_memory_type is array (0 to 2**address_size-1) of std_ulogic_vector(row_size-1 downto 0);
-  signal mem : M_j_memory_type;
+  type ram_type is array (0 to 2**address_size-1) of std_ulogic_vector(row_size-1 downto 0);
+  signal RAM : ram_type;
 
 begin
-
-  process (clk, rstn) -- asynchronous reset
+  process(clk)
   begin
-    
-    if rstn = '0' then
-      data_out <= (others => '0');
-
-    elsif clk'event and clk = '1' then
-      if cs_n = '0' then
-
-        -- writing
-        if we_n = '0' then
-          mem(to_integer(unsigned(address))) <= data_in;
-
-        -- reading
-        else
-          data_out <= mem(to_integer(unsigned(address)));
+    if clk'event and clk = '1' then
+      if wcs_n = '1' then
+        if we_n = '1' then
+          RAM(to_integer(unsigned(w_addr))) <= data_in;
         end if;
-
       end if;
     end if;
   end process;
-end architecture behav;
+
+  process(clk)
+  begin
+    if clk'event and clk = '1' then
+      if rcs_n = '1' then
+        data_out <= RAM(to_integer(unsigned(r_addr)));
+      end if;
+    end if;
+  end process;
+
+end behav;
