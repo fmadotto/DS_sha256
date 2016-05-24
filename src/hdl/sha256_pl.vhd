@@ -87,124 +87,6 @@ architecture rtl of sha256_pl is
     end if;
   end function or_reduce;
 
-  -- components
-  component M_j_memory is
-    generic (
-      row_size      : natural := 32;
-      address_size  : natural := 4
-    );
-    port (
-      clk      : in  std_ulogic; -- clock
-      rcs_n    : in  std_ulogic; -- read chip select: when asserted low, memory can be read
-      wcs_n    : in  std_ulogic; -- write chip select: when asserted low, memory can be written if also we_n is low
-      we_n     : in  std_ulogic; -- write enable: when asserted low, memory can be written
-      r_addr   : in  std_ulogic_vector(address_size-1 downto 0);
-      w_addr   : in  std_ulogic_vector(address_size-1 downto 0);
-      data_in  : in  std_ulogic_vector(row_size-1 downto 0);
-      data_out : out std_ulogic_vector(row_size-1 downto 0)
-    );
-  end component M_j_memory;
-
-  component start_FF is
-    port (
-      clk   : in  std_ulogic; -- clock
-      d     : in  std_ulogic; -- data in  
-      start : out std_ulogic  -- data out
-    );
-  end component start_FF;
-
-  component control_unit is
-    port (
-      clk                 : in  std_ulogic; -- clock
-      rstn                : in  std_ulogic; -- asynchronous active low reset
-      start               : in  std_ulogic; -- start signal
-      done                : out std_ulogic; -- done signal
-      
-      -- data path ports
-      exp_sel1_delayed    : out std_ulogic; -- select signal for exp_mux1
-      com_sel1_delayed    : out std_ulogic; -- select signal for exp_mux1
-
-      -- M_j_memory_dual ports
-      M_j_memory_rcs_n    : out std_ulogic; -- read chip select: when asserted low, memory can be read
-      M_j_memory_r_addr   : out std_ulogic_vector(3 downto 0);
-
-      -- reg_H_minus_1 ports
-      reg_H_minus_1_en    : out std_ulogic; -- enable signal for the H(i-1) registers
-      reg_H_minus_1_sel   : out std_ulogic; -- select signal for the H(i-1) registers
-      
-      -- K_j_constants ports
-      K_j_init            : out std_ulogic -- start signal for K_j
-    );
-  end component control_unit;
-
-  component K_j_constants is
-    port (
-      clk      : in  std_ulogic; -- clock
-      rstn     : in  std_ulogic; -- asynchronous active low reset
-      K_j_init : in  std_ulogic; -- start signal for K_j
-      K_j      : out std_ulogic_vector(31 downto 0) -- NIST-defined constants Kj
-    );
-  end component K_j_constants;
-
-  component reg_H_minus_1 is
-    port (
-      clk               : in  std_ulogic; -- clock
-      rstn              : in  std_ulogic; -- asynchronous active low reset
-      reg_H_minus_1_en  : in  std_ulogic; -- enable signal for the H(i-1) registers
-      reg_H_minus_1_sel : in  std_ulogic; -- select signal for the H(i-1) registers
-      H_i_A,
-      H_i_B,
-      H_i_C,
-      H_i_D,
-      H_i_E,
-      H_i_F,
-      H_i_G,
-      H_i_H             : in  std_ulogic_vector(31 downto 0); -- resulting hash value H_(i) from datapath (to be stored)
-      H_iminus1_A,
-      H_iminus1_B,
-      H_iminus1_C,
-      H_iminus1_D,
-      H_iminus1_E,
-      H_iminus1_F,
-      H_iminus1_G,
-      H_iminus1_H       : out std_ulogic_vector(31 downto 0) -- intermediate hash value H_(i-1)
-    );
-  end component reg_H_minus_1;
-
-  component data_path is
-    port (
-      -- common ports
-      clk          : in  std_ulogic;                     -- clock
-      rstn         : in  std_ulogic;                     -- asynchronous active low reset
-
-      -- expander input ports
-      exp_sel1     : in  std_ulogic;                     -- select signal for exp_mux1
-      M_i_j        : in  std_ulogic_vector(31 downto 0); -- 32-bit word of the i-th message block
-
-      -- compressor input ports
-      com_sel1     : in  std_ulogic;                     -- select signal for com_muxA, ..., com_muxH
-      K_j          : in  std_ulogic_vector(31 downto 0); -- NIST-defined constants Kj
-      H_iminus1_A,
-      H_iminus1_B,
-      H_iminus1_C,
-      H_iminus1_D,
-      H_iminus1_E,
-      H_iminus1_F,
-      H_iminus1_G,
-      H_iminus1_H  : in  std_ulogic_vector(31 downto 0); -- intermediate hash value H_(i-1)
-
-      -- output ports
-      H_i_A,
-      H_i_B,
-      H_i_C,
-      H_i_D,
-      H_i_E,
-      H_i_F,
-      H_i_G,
-      H_i_H        : out std_ulogic_vector(31 downto 0)  -- resulting hash value H_(i)
-    );
-  end component data_path;
-
   -- signals
 
   -- Record versions of AXI signals
@@ -260,7 +142,7 @@ architecture rtl of sha256_pl is
 
 begin
 
-  pl_M_j_memory1 : M_j_memory
+  pl_M_j_memory1 : entity work.M_j_memory
     generic map (
       row_size      => 32,
       address_size  => 4
@@ -276,14 +158,14 @@ begin
       data_out => M_j_memory_data_out
     );
 
-  pl_start_FF1 : start_FF
+  pl_start_FF1 : entity work.start_FF
     port map (
       clk   => clk,
       d     => start_FF_start_in,
       start => start_FF_start_out
     );
 
-  pl_control_unit1 : control_unit
+  pl_control_unit1 : entity work.control_unit
     port map (
       clk                 => clk,
       rstn                => rstn,
@@ -306,7 +188,7 @@ begin
       K_j_init            => cu_K_j_init_out
     );
 
-  pl_K_j_constants1 : K_j_constants
+  pl_K_j_constants1 : entity work.K_j_constants
     port map (
       clk      => clk,
       rstn     => rstn,
@@ -314,7 +196,7 @@ begin
       K_j      => K_j_constants_out
     );
 
-  pl_reg_H_minus_11 : reg_H_minus_1
+  pl_reg_H_minus_11 : entity work.reg_H_minus_1
     port map (
       clk               => clk,
       rstn              => rstn,
@@ -338,7 +220,7 @@ begin
       H_iminus1_H       => reg_H_iminus1_H_out
     );
 
-  pl_data_path1 : data_path
+  pl_data_path1 : entity work.data_path
     port map (
       -- common ports
       clk          => clk,
@@ -485,5 +367,35 @@ begin
       end case;
     end if;
   end process s0_axi_pr;
+
+  -- Record types to flat signals
+  s0_axi_m2s.araddr  <= std_ulogic_vector("00" & s0_axi_araddr);
+  s0_axi_m2s.arprot  <= std_ulogic_vector(s0_axi_arprot);
+  s0_axi_m2s.arvalid <= s0_axi_arvalid;
+
+  s0_axi_m2s.rready  <= s0_axi_rready;
+
+  s0_axi_m2s.awaddr  <= std_ulogic_vector("00" & s0_axi_awaddr);
+  s0_axi_m2s.awprot  <= std_ulogic_vector(s0_axi_awprot);
+  s0_axi_m2s.awvalid <= s0_axi_awvalid;
+
+  s0_axi_m2s.wdata   <= std_ulogic_vector(s0_axi_wdata);
+  s0_axi_m2s.wstrb   <= std_ulogic_vector(s0_axi_wstrb);
+  s0_axi_m2s.wvalid  <= s0_axi_wvalid;
+
+  s0_axi_m2s.bready  <= s0_axi_bready;
+
+  s0_axi_arready     <= s0_axi_s2m.arready;
+
+  s0_axi_rdata       <= std_logic_vector(s0_axi_s2m.rdata);
+  s0_axi_rresp       <= std_logic_vector(s0_axi_s2m.rresp);
+  s0_axi_rvalid      <= s0_axi_s2m.rvalid;
+
+  s0_axi_awready     <= s0_axi_s2m.awready;
+
+  s0_axi_wready      <= s0_axi_s2m.wready;
+
+  s0_axi_bvalid      <= s0_axi_s2m.bvalid;
+  s0_axi_bresp       <= std_logic_vector(s0_axi_s2m.bresp);
 
 end architecture rtl;

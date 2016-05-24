@@ -46,36 +46,6 @@ entity control_unit is
 end entity control_unit;
 
 architecture rtl of control_unit is
-  
-  -- components
-  component fsm is
-    port (
-      clk                : in  std_ulogic;                    -- clock
-      rstn               : in  std_ulogic;                    -- asynchronous active low reset
-      start              : in  std_ulogic;                    -- start signal
-      exp_sel1           : out std_ulogic;                    -- select signal for exp_mux1
-      com_sel1           : out std_ulogic;                    -- select signal for com_mux1
-      M_j_memory_rcs_n   : out std_ulogic;                    -- read chip select: when asserted low, memory can be read
-      M_j_memory_r_addr  : out std_ulogic_vector(3 downto 0); -- address
-      reg_H_minus_1_en   : out std_ulogic;                    -- enable signal for the H(i-1) registers
-      reg_H_minus_1_sel  : out std_ulogic;                    -- select signal for the H(i-1) registers
-      K_j_init           : out std_ulogic;                    -- init signal for the K_j constants feeder
-      done               : out std_ulogic                     -- done signal
-    );
-  end component fsm;
-
-  component nbits_register is
-    generic (
-      n : natural := 32                           -- input size (default is 32 bits)
-    );
-    port (
-      clk  : in  std_ulogic;                      -- clock
-      rstn : in  std_ulogic;                      -- asynchronous active low reset
-      en   : in  std_ulogic;                      -- enable
-      d    : in  std_ulogic_vector(n-1 downto 0); -- data in  
-      q    : out std_ulogic_vector(n-1 downto 0)  -- data out
-    );
-  end component nbits_register;
 
   -- signals
   signal cu_fsm_exp_sel1_out,            
@@ -85,7 +55,7 @@ architecture rtl of control_unit is
 
 begin
 
-    cu_delay_ff_exp_sel1 : nbits_register
+    cu_delay_ff_exp_sel1 : entity work.nbits_register
     generic map (
       n => 1
     )
@@ -100,7 +70,7 @@ begin
     exp_sel1_delayed <= cu_delay_ff_exp_sel1_out(0);
 
 
-    cu_delay_ff_com_sel1 : nbits_register
+    cu_delay_ff_com_sel1 : entity work.nbits_register
     generic map (
       n => 1
     )
@@ -114,7 +84,7 @@ begin
 
     com_sel1_delayed <= cu_delay_ff_com_sel1_out(0);
 
-    cu_fsm1 : fsm
+    cu_fsm1 : entity work.fsm
     port map (
       clk                => clk,
       rstn               => rstn,

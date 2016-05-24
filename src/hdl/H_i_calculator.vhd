@@ -51,23 +51,10 @@ entity H_i_calculator is
 end entity H_i_calculator;
 
 architecture rtl of H_i_calculator is
-  
-  -- components
-  component cla is
-    generic (
-      n : natural := 32                             -- input size (default is 32 bits)
-    );
-    port (
-      x     : in  std_ulogic_vector(n-1 downto 0);  -- first binary number to sum
-      y     : in  std_ulogic_vector(n-1 downto 0);  -- second binary number to sum
-      sum   : out std_ulogic_vector(n-1 downto 0);  -- result of the sum
-      cout  : out std_ulogic                        -- carry out
-    );
-  end component cla;
 
 begin
 
-  Hcalc_claA : cla
+  Hcalc_claA : entity work.cla
     generic map (
       n => 32
     )
@@ -78,7 +65,7 @@ begin
       cout => open
     );
 
-  Hcalc_claB : cla
+  Hcalc_claB : entity work.cla
     generic map (
       n => 32
     )
@@ -89,7 +76,7 @@ begin
       cout => open
     );
 
-  Hcalc_claC : cla
+  Hcalc_claC : entity work.cla
     generic map (
       n => 32
     )
@@ -100,7 +87,7 @@ begin
       cout => open
     );
 
-  Hcalc_claD : cla
+  Hcalc_claD : entity work.cla
     generic map (
       n => 32
     )
@@ -111,7 +98,7 @@ begin
       cout => open
     );
 
-  Hcalc_claE : cla
+  Hcalc_claE : entity work.cla
     generic map (
       n => 32
     )
@@ -122,7 +109,7 @@ begin
       cout => open
     );
 
-  Hcalc_claF : cla
+  Hcalc_claF : entity work.cla
     generic map (
       n => 32
     )
@@ -133,7 +120,7 @@ begin
       cout => open
     );
 
-  Hcalc_claG : cla
+  Hcalc_claG : entity work.cla
     generic map (
       n => 32
     )
@@ -144,7 +131,7 @@ begin
       cout => open
     );
 
-  Hcalc_claH : cla
+  Hcalc_claH : entity work.cla
     generic map (
       n => 32
     )

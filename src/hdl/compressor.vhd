@@ -49,89 +49,6 @@ end entity compressor;
 
 architecture rtl of compressor is
 
-  -- components
-  component mux_2_to_1 is
-    generic (
-      n : natural := 32                        -- input size (default is 32 bits)
-    );
-    port (
-      x : in  std_ulogic_vector(n-1 downto 0); -- first binary input
-      y : in  std_ulogic_vector(n-1 downto 0); -- second binary input
-      s : in  std_ulogic;                      -- select line
-      o : out std_ulogic_vector(n-1 downto 0)  -- output
-    );
-  end component mux_2_to_1;
-
-  component nbits_register is
-    generic (
-      n : natural := 32                           -- input size (default is 32 bits)
-    );
-    port (
-      clk  : in  std_ulogic;                      -- clock
-      rstn : in  std_ulogic;                      -- asynchronous active low reset
-      en   : in  std_ulogic;                      -- enable
-      d    : in  std_ulogic_vector(n-1 downto 0); -- data in  
-      q    : out std_ulogic_vector(n-1 downto 0)  -- data out
-    );
-  end component nbits_register;
-
-  component csigma_0 is
-    port (
-      x : in  std_ulogic_vector(31 downto 0); -- first binary input
-      o : out std_ulogic_vector(31 downto 0)  -- output
-    );
-  end component csigma_0;
-
-  component csigma_1 is
-    port (
-      x : in  std_ulogic_vector(31 downto 0); -- first binary input
-      o : out std_ulogic_vector(31 downto 0)  -- output
-    );
-  end component csigma_1;
-
-  component ch is
-    port (
-      x : in  std_ulogic_vector(31 downto 0); -- first binary input
-      y : in  std_ulogic_vector(31 downto 0); -- second binary input
-      z : in  std_ulogic_vector(31 downto 0); -- third binary input
-      o : out std_ulogic_vector(31 downto 0)  -- output
-    );
-  end component ch;
-
-  component maj is
-    port (
-      x : in  std_ulogic_vector(31 downto 0); -- first binary input
-      y : in  std_ulogic_vector(31 downto 0); -- second binary input
-      z : in  std_ulogic_vector(31 downto 0); -- third binary input
-      o : out std_ulogic_vector(31 downto 0)  -- output
-    );
-  end component maj;
-
-  component csa is
-    generic (
-      n : natural := 32                             -- input size (default is 32 bits)
-    );
-    port (
-      x     : in  std_ulogic_vector(n-1 downto 0);  -- first binary number to sum
-      y     : in  std_ulogic_vector(n-1 downto 0);  -- second binary number to sum
-      z     : in  std_ulogic_vector(n-1 downto 0);  -- third binary number to sum
-      sum   : out std_ulogic_vector(n-1 downto 0);  -- result of the sum
-      cout  : out std_ulogic_vector(n-1 downto 0)   -- carry out
-    );
-  end component csa;
-
-  component cla is
-    generic (
-      n : natural := 32                             -- input size (default is 32 bits)
-    );
-    port (
-      x     : in  std_ulogic_vector(n-1 downto 0);  -- first binary number to sum
-      y     : in  std_ulogic_vector(n-1 downto 0);  -- second binary number to sum
-      sum   : out std_ulogic_vector(n-1 downto 0);  -- result of the sum
-      cout  : out std_ulogic                        -- carry out
-    );
-  end component cla;
-
   -- signals
   signal com_muxA_out,
          com_muxB_out,
@@ -170,7 +87,7 @@ architecture rtl of compressor is
 
 begin
 
-  com_csa1 : csa
+  com_csa1 : entity work.csa
     generic map (
       n => 32
     )
@@ -182,7 +99,7 @@ begin
       cout => com_csa1_cout_out
     );
 
-  com_csa2 : csa
+  com_csa2 : entity work.csa
     generic map (
       n => 32
     )
@@ -194,7 +111,7 @@ begin
       cout => com_csa2_cout_out
     );
 
-  com_csa3 : csa
+  com_csa3 : entity work.csa
     generic map (
       n => 32
     )
@@ -206,7 +123,7 @@ begin
       cout => com_csa3_cout_out
     );
 
-  com_csa4 : csa
+  com_csa4 : entity work.csa
     generic map (
       n => 32
     )
@@ -218,7 +135,7 @@ begin
       cout => com_csa4_cout_out
     );
 
-  com_csa5 : csa
+  com_csa5 : entity work.csa
     generic map (
       n => 32
     )
@@ -230,7 +147,7 @@ begin
       cout => com_csa5_cout_out
     );
 
-  com_csa6 : csa
+  com_csa6 : entity work.csa
     generic map (
       n => 32
     )
@@ -242,7 +159,7 @@ begin
       cout => com_csa6_cout_out
     );
 
-  com_cla1 : cla
+  com_cla1 : entity work.cla
     generic map (
       n => 32
     )
@@ -253,7 +170,7 @@ begin
       cout => open
     );
 
-  com_cla2 : cla
+  com_cla2 : entity work.cla
     generic map (
       n => 32
     )
@@ -264,7 +181,7 @@ begin
       cout => open
     );
 
-  com_maj1 : maj
+  com_maj1 : entity work.maj
     port map (
       x => com_regA_out,
       y => com_regB_out,
@@ -272,7 +189,7 @@ begin
       o => com_maj1_out
     );
 
-  com_ch1 : ch
+  com_ch1 : entity work.ch
     port map (
       x => com_regE_out,
       y => com_regF_out,
@@ -280,19 +197,19 @@ begin
       o => com_ch1_out
     );
 
-  com_csigma_01 : csigma_0
+  com_csigma_01 : entity work.csigma_0
     port map (
       x => com_regA_out,
       o => com_csigma_01_out
     );
 
-  com_csigma_11 : csigma_1
+  com_csigma_11 : entity work.csigma_1
     port map (
       x => com_regE_out,
       o => com_csigma_11_out
     );
 
-  com_muxA : mux_2_to_1
+  com_muxA : entity work.mux_2_to_1
     generic map (
       n => 32
     )
@@ -303,7 +220,7 @@ begin
       o => com_muxA_out
     );
 
-  com_muxB : mux_2_to_1
+  com_muxB : entity work.mux_2_to_1
     generic map (
       n => 32
     )
@@ -314,7 +231,7 @@ begin
       o => com_muxB_out
     );
 
-  com_muxC : mux_2_to_1
+  com_muxC : entity work.mux_2_to_1
     generic map (
       n => 32
     )
@@ -325,7 +242,7 @@ begin
       o => com_muxC_out
     );
 
-  com_muxD : mux_2_to_1
+  com_muxD : entity work.mux_2_to_1
     generic map (
       n => 32
     )
@@ -336,7 +253,7 @@ begin
       o => com_muxD_out
     );
 
-  com_muxE : mux_2_to_1
+  com_muxE : entity work.mux_2_to_1
     generic map (
       n => 32
     )
@@ -347,7 +264,7 @@ begin
       o => com_muxE_out
     );
 
-  com_muxF : mux_2_to_1
+  com_muxF : entity work.mux_2_to_1
     generic map (
       n => 32
     )
@@ -358,7 +275,7 @@ begin
       o => com_muxF_out
     );
 
-  com_muxG : mux_2_to_1
+  com_muxG : entity work.mux_2_to_1
     generic map (
       n => 32
     )
@@ -369,7 +286,7 @@ begin
       o => com_muxG_out
     );
 
-  com_muxH : mux_2_to_1
+  com_muxH : entity work.mux_2_to_1
     generic map (
       n => 32
     )
@@ -380,7 +297,7 @@ begin
       o => com_muxH_out
     );
 
-  com_regA : nbits_register
+  com_regA : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -392,7 +309,7 @@ begin
       q => com_regA_out
     );
 
-  com_regB : nbits_register
+  com_regB : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -404,7 +321,7 @@ begin
       q => com_regB_out
     );
 
-  com_regC : nbits_register
+  com_regC : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -416,7 +333,7 @@ begin
       q => com_regC_out
     );
 
-  com_regD : nbits_register
+  com_regD : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -428,7 +345,7 @@ begin
       q => com_regD_out
     );
 
-  com_regE : nbits_register
+  com_regE : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -440,7 +357,7 @@ begin
       q => com_regE_out
     );
 
-  com_regF : nbits_register
+  com_regF : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -452,7 +369,7 @@ begin
       q => com_regF_out
     );
 
-  com_regG : nbits_register
+  com_regG : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -464,7 +381,7 @@ begin
       q => com_regG_out
     );
 
-  com_regH : nbits_register
+  com_regH : entity work.nbits_register
     generic map (
       n => 32
     )

@@ -59,72 +59,6 @@ end entity data_path;
 
 architecture rtl of data_path is
 
-  -- components
-  component expander is
-    port (
-      clk       : in  std_ulogic;                     -- clock
-      rstn      : in  std_ulogic;                     -- asynchronous active low reset
-      exp_sel1  : in  std_ulogic;                     -- select signal for exp_mux1
-      M_i_j     : in  std_ulogic_vector(31 downto 0); -- 32-bit word of the i-th message block
-      W_i_j     : out std_ulogic_vector(31 downto 0)  -- 32-bit W_i_j
-    );
-  end component expander;
-
-  component compressor is
-    port (
-      clk          : in  std_ulogic;                     -- clock
-      rstn         : in  std_ulogic;                     -- asynchronous active low reset
-      com_sel1     : in  std_ulogic;                     -- select signal for com_muxA, ..., com_muxH
-      W_i_j        : in  std_ulogic_vector(31 downto 0); -- 32-bit W_i_j
-      K_j          : in  std_ulogic_vector(31 downto 0); -- NIST-defined constants Kj
-      H_iminus1_A,
-      H_iminus1_B,
-      H_iminus1_C,
-      H_iminus1_D,
-      H_iminus1_E,
-      H_iminus1_F,
-      H_iminus1_G,
-      H_iminus1_H  : in  std_ulogic_vector(31 downto 0); -- intermediate hash value H_(i-1)
-      A_i,
-      B_i,
-      C_i,
-      D_i,
-      E_i,
-      F_i,
-      G_i,
-      H_i          : out std_ulogic_vector(31 downto 0) -- A-F registers values
-    );
-  end component compressor;
-
-  component H_i_calculator is
-    port (
-      H_iminus1_A,
-      H_iminus1_B,
-      H_iminus1_C,
-      H_iminus1_D,
-      H_iminus1_E,
-      H_iminus1_F,
-      H_iminus1_G,
-      H_iminus1_H  : in  std_ulogic_vector(31 downto 0); -- intermediate hash value H_(i-1)
-      A_i,
-      B_i,
-      C_i,
-      D_i,
-      E_i,
-      F_i,
-      G_i,
-      H_i          : in  std_ulogic_vector(31 downto 0); -- A-F registers values
-      H_i_A,
-      H_i_B,
-      H_i_C,
-      H_i_D,
-      H_i_E,
-      H_i_F,
-      H_i_G,
-      H_i_H        : out std_ulogic_vector(31 downto 0)  -- resulting hash value H_(i)
-    );
-  end component H_i_calculator;
-
   -- signals
   signal dp_exp_W_i_j_out : std_ulogic_vector(31 downto 0); -- 32-bit W_i_j
   signal dp_com_A_i_out,
@@ -138,7 +72,7 @@ architecture rtl of data_path is
 
 begin
   
-  dp_expander1 : expander
+  dp_expander1 : entity work.expander
     port map (
       clk      => clk,
       rstn     => rstn,
@@ -147,7 +81,7 @@ begin
       W_i_j    => dp_exp_W_i_j_out
     );
 
-  dp_compressor1 : compressor
+  dp_compressor1 : entity work.compressor
     port map (
       clk         => clk,
       rstn        => rstn,
@@ -172,7 +106,7 @@ begin
       H_i         => dp_com_H_i_out 
     );
 
-  dp_H_i_calculator1 : H_i_calculator
+  dp_H_i_calculator1 : entity work.H_i_calculator
     port map (
       H_iminus1_A => H_iminus1_A,
       H_iminus1_B => H_iminus1_B,

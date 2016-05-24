@@ -35,16 +35,6 @@ end entity cla;
 
 architecture rtl of cla is
 
-  component full_adder is
-    port (
-      x    : in	 std_ulogic;
-      y    : in	 std_ulogic;
-      cin  : in	 std_ulogic; -- carry in
-      sum  : out std_ulogic;
-      cout : out std_ulogic  -- carry out
-    );
-  end component full_adder;
-
 	signal G : std_ulogic_vector(n-1 downto 0); -- generate signal:  G_i = x_i * y_i
 	signal P : std_ulogic_vector(n-1 downto 0); -- propagate signal: P_i = x_i + y_i
   signal S : std_ulogic_vector(n-1 downto 0); -- sum signal
@@ -53,7 +43,7 @@ architecture rtl of cla is
 begin
 
   FA_gen : for i in 0 to n-1 generate
-    FA_instance : full_adder
+    FA_instance : entity work.full_adder
       port map (
         x    => x(i),
         y    => y(i),

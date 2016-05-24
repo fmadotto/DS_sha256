@@ -33,71 +33,6 @@ end entity expander;
 
 architecture rtl of expander is
   
-  -- components
-  component mux_2_to_1 is
-    generic (
-      n : natural := 32                        -- input size (default is 32 bits)
-    );
-    port (
-      x : in  std_ulogic_vector(n-1 downto 0); -- first binary input
-      y : in  std_ulogic_vector(n-1 downto 0); -- second binary input
-      s : in  std_ulogic;                      -- select line
-      o : out std_ulogic_vector(n-1 downto 0)  -- output
-    );
-  end component mux_2_to_1;
-
-  component nbits_register is
-    generic(
-      n : natural := 32                           -- input size (default is 32 bits)
-    );
-    port(
-      clk  : in  std_ulogic;                      -- clock
-      rstn : in  std_ulogic;                      -- asynchronous active low reset
-      en   : in  std_ulogic;                      -- enable
-      d    : in  std_ulogic_vector(n-1 downto 0); -- data in  
-      q    : out std_ulogic_vector(n-1 downto 0)  -- data out
-    );
-  end component nbits_register;
-
-  component sigma_0 is
-    port (
-      x : in  std_ulogic_vector(31 downto 0); -- first binary input
-      o : out std_ulogic_vector(31 downto 0)  -- output
-    );
-  end component sigma_0;
-
-  component sigma_1 is
-    port (
-      x : in  std_ulogic_vector(31 downto 0); -- first binary input
-      o : out std_ulogic_vector(31 downto 0)  -- output
-    );
-  end component sigma_1;
-
-  component csa is
-    generic (
-      n : natural := 32                             -- input size (default is 32 bits)
-    );
-    port (
-      x     : in  std_ulogic_vector(n-1 downto 0);  -- first binary number to sum
-      y     : in  std_ulogic_vector(n-1 downto 0);  -- second binary number to sum
-      z     : in  std_ulogic_vector(n-1 downto 0);  -- third binary number to sum
-      sum   : out std_ulogic_vector(n-1 downto 0);  -- result of the sum
-      cout  : out std_ulogic_vector(n-1 downto 0)   -- carry out
-    );
-  end component csa;
-
-  component cla is
-    generic (
-      n : natural := 32                             -- input size (default is 32 bits)
-    );
-    port (
-      x     : in  std_ulogic_vector(n-1 downto 0);  -- first binary number to sum
-      y     : in  std_ulogic_vector(n-1 downto 0);  -- second binary number to sum
-      sum   : out std_ulogic_vector(n-1 downto 0);  -- result of the sum
-      cout  : out std_ulogic                        -- carry out
-    );
-  end component cla;
-
   -- signals
   signal exp_mux1_out      : std_ulogic_vector(31 downto 0); -- multiplexer output
   signal exp_reg1_out,
@@ -126,7 +61,7 @@ architecture rtl of expander is
 
 begin
 
-  exp_mux1 : mux_2_to_1
+  exp_mux1 : entity work.mux_2_to_1
     generic map (
       n => 32
     )
@@ -137,7 +72,7 @@ begin
       o => exp_mux1_out
     );
 
-  exp_reg1 : nbits_register
+  exp_reg1 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -149,7 +84,7 @@ begin
       q => exp_reg1_out 
     );
 
-  exp_reg2 : nbits_register
+  exp_reg2 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -161,7 +96,7 @@ begin
       q => exp_reg2_out 
     );
 
-  exp_reg3 : nbits_register
+  exp_reg3 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -173,7 +108,7 @@ begin
       q => exp_reg3_out 
     );
 
-  exp_reg4 : nbits_register
+  exp_reg4 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -185,7 +120,7 @@ begin
       q => exp_reg4_out 
     );
 
-  exp_reg5 : nbits_register
+  exp_reg5 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -197,7 +132,7 @@ begin
       q => exp_reg5_out 
     );
 
-  exp_reg6 : nbits_register
+  exp_reg6 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -209,7 +144,7 @@ begin
       q => exp_reg6_out 
     );
 
-  exp_reg7 : nbits_register
+  exp_reg7 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -221,7 +156,7 @@ begin
       q => exp_reg7_out 
     );
 
-  exp_reg8 : nbits_register
+  exp_reg8 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -233,7 +168,7 @@ begin
       q => exp_reg8_out 
     );
 
-  exp_reg9 : nbits_register
+  exp_reg9 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -245,7 +180,7 @@ begin
       q => exp_reg9_out 
     );
 
-  exp_reg10 : nbits_register
+  exp_reg10 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -257,7 +192,7 @@ begin
       q => exp_reg10_out 
     );
 
-  exp_reg11 : nbits_register
+  exp_reg11 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -269,7 +204,7 @@ begin
       q => exp_reg11_out 
     );
 
-  exp_reg12 : nbits_register
+  exp_reg12 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -281,7 +216,7 @@ begin
       q => exp_reg12_out 
     );
 
-  exp_reg13 : nbits_register
+  exp_reg13 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -293,7 +228,7 @@ begin
       q => exp_reg13_out 
     );
 
-  exp_reg14 : nbits_register
+  exp_reg14 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -305,7 +240,7 @@ begin
       q => exp_reg14_out 
     );
 
-  exp_reg15 : nbits_register
+  exp_reg15 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -317,7 +252,7 @@ begin
       q => exp_reg15_out 
     );
 
-  exp_reg16 : nbits_register
+  exp_reg16 : entity work.nbits_register
     generic map (
       n => 32
     )
@@ -329,19 +264,19 @@ begin
       q => exp_reg16_out 
     );
 
-  exp_sigma_01 : sigma_0
+  exp_sigma_01 : entity work.sigma_0
     port map (
       x => exp_reg15_out,
       o => exp_sigma_01_out
     );
 
-  exp_sigma_11 : sigma_1
+  exp_sigma_11 : entity work.sigma_1
     port map (
       x => exp_reg2_out,
       o => exp_sigma_11_out
     );
 
-  exp_csa1 : csa
+  exp_csa1 : entity work.csa
     generic map (
       n => 32
     )
@@ -353,7 +288,7 @@ begin
       cout => exp_csa1_cout_out
     );
 
-  exp_csa2 : csa
+  exp_csa2 : entity work.csa
     generic map (
       n => 32
     )
@@ -365,7 +300,7 @@ begin
       cout => exp_csa2_cout_out
     );
 
-  exp_cla1 : cla
+  exp_cla1 : entity work.cla
     generic map (
       n => 32
     )
