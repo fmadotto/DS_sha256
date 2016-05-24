@@ -394,7 +394,7 @@ begin
           if s0_axi_m2s.awvalid = '1' and s0_axi_m2s.wvalid = '1' then -- Write address and data
             if or_reduce(s0_axi_m2s.awaddr(31 downto 7)) /= '0' then -- If unmapped address
               s0_axi_s2m.bresp <= axi_resp_decerr;
-            elsif s0_axi_m2s.awaddr(7 downto 0) = x"00" then -- If read-only status register
+            elsif s0_axi_m2s.awaddr(7 downto 0) = x"00" or s0_axi_m2s.awaddr(7 downto 0) > x"44" then -- If read-only status register or H_(i-1)
               s0_axi_s2m.bresp <= axi_resp_slverr;
             else
               s0_axi_s2m.bresp <= axi_resp_okay;
@@ -424,18 +424,46 @@ begin
             s0_axi_s2m.bvalid <= '1';
             state := w1;
 
-          elsif s0_axi_m2s.arvalid = '1' then
-            if or_reduce(s0_axi_m2s.araddr(31 downto 0)) /= '0' then -- If not status register
-              s0_axi_s2m.rdata <= (others => '0');
-              s0_axi_s2m.rresp <= axi_resp_decerr;
-            else
-              s0_axi_s2m.rresp <= axi_resp_okay;
-              s0_axi_s2m.rdata <= status;
+            elsif s0_axi_m2s.arvalid = '1' then
+              if or_reduce(s0_axi_m2s.araddr(31 downto 7)) /= '0' then -- If unmapped address
+                s0_axi_s2m.rdata <= (others => '0');
+                s0_axi_s2m.rresp <= axi_resp_decerr;
+              elsif s0_axi_m2s.awaddr(7 downto 0) > x"00" or s0_axi_m2s.awaddr(7 downto 0) <= x"44" then -- If write-only Mj or start
+                s0_axi_s2m.rresp <= axi_resp_slverr;
+              else
+                s0_axi_s2m.rresp <= axi_resp_okay;
+
+                case s0_axi_m2s.awaddr(7 downto 0) is
+                  when x"00" => -- status register
+                    s0_axi_s2m.rdata <= status;
+
+                  -- H(i-1)
+                  when x"48" =>
+                    s0_axi_s2m.rdata <= reg_H_iminus1_A_out;
+                  when x"4c" =>
+                    s0_axi_s2m.rdata <= reg_H_iminus1_B_out;
+                  when x"50" =>
+                    s0_axi_s2m.rdata <= reg_H_iminus1_C_out;
+                  when x"54" =>
+                    s0_axi_s2m.rdata <= reg_H_iminus1_D_out;
+                  when x"58" =>
+                    s0_axi_s2m.rdata <= reg_H_iminus1_E_out;
+                  when x"5c" =>
+                    s0_axi_s2m.rdata <= reg_H_iminus1_F_out;
+                  when x"60" =>
+                    s0_axi_s2m.rdata <= reg_H_iminus1_G_out;
+                  when x"64" =>
+                    s0_axi_s2m.rdata <= reg_H_iminus1_H_out;
+
+                  when others => 
+                    s0_axi_s2m.rdata <= x"00000000";
+                end case;
+
+              end if;
+              s0_axi_s2m.arready <= '1';
+              s0_axi_s2m.rvalid <= '1';
+              state := r1;
             end if;
-            s0_axi_s2m.arready <= '1';
-            s0_axi_s2m.rvalid <= '1';
-            state := r1;
-          end if;
 
         when w1 =>
           s0_axi_s2m.awready <= '0';
