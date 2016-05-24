@@ -38,7 +38,7 @@ create_project -part xc7z010clg400-1 -force DS_sha256 DS_sha256
 # replace filenames
 # add_files $rootdir/hdl/axi_pkg.vhd $rootdir/hdl/debouncer.vhd $rootdir/hdl/DS_sha256.vhd
 add_files $rootdir/hdl/axi_pkg.vhd $rootdir/hdl/ch.vhd $rootdir/hdl/cla.vhd $rootdir/hdl/compressor.vhd $rootdir/hdl/control_unit.vhd $rootdir/hdl/csa.vhd $rootdir/hdl/csigma_0.vhd $rootdir/hdl/csigma_1.vhd $rootdir/hdl/data_path.vhd $rootdir/hdl/expander.vhd $rootdir/hdl/fsm.vhd $rootdir/hdl/full_adder.vhd $rootdir/hdl/H_i_calculator.vhd $rootdir/hdl/K_j_constants.vhd $rootdir/hdl/maj.vhd $rootdir/hdl/M_j_memory.vhd $rootdir/hdl/mux_2_to_1.vhd $rootdir/hdl/reg_H_minus_1.vhd $rootdir/hdl/register.vhd $rootdir/hdl/sha256_pl.vhd $rootdir/hdl/sigma_0.vhd $rootdir/hdl/sigma_1.vhd $rootdir/hdl/start_FF.vhd 
-set_property top sha256_pl
+set_property top sha256_pl [current_fileset]
 
 import_files -force -norecurse
 ipx::package_project -root_dir DS_sha256 -vendor www.telecom-paristech.fr -library DS_SHA256 -force DS_sha256
@@ -53,10 +53,10 @@ set_property board_part digilentinc.com:zybo:part0:1.0 [current_project]
 set_property ip_repo_paths { ./DS_sha256 } [current_fileset]
 update_ip_catalog
 create_bd_design "$top"
-set DS_sha256 [create_bd_cell -type ip -vlnv [get_ipdefs *www.telecom-paristech.fr:DS_SHA256:DS_sha256:*] DS_sha256]
+set DS_sha256 [create_bd_cell -type ip -vlnv [get_ipdefs *www.telecom-paristech.fr:DS_SHA256:sha256_pl:*] DS_sha256]
 set ps7 [create_bd_cell -type ip -vlnv [get_ipdefs *xilinx.com:ip:processing_system7:*] ps7]
 apply_bd_automation -rule xilinx.com:bd_rule:processing_system7 -config {make_external "FIXED_IO, DDR" apply_board_preset "1" Master "Disable" Slave "Disable" } $ps7
-set_property -dict [list CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {100.000000}] $ps7
+set_property -dict [list CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {50.000000}] $ps7
 set_property -dict [list CONFIG.PCW_USE_M_AXI_GP0 {1}] $ps7
 set_property -dict [list CONFIG.PCW_M_AXI_GP0_ENABLE_STATIC_REMAP {1}] $ps7
 
