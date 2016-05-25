@@ -62,6 +62,8 @@ set_property -dict [list CONFIG.PCW_M_AXI_GP0_ENABLE_STATIC_REMAP {1}] $ps7
 
 # Interconnections
 # Primary IOs
+create_bd_port -dir O done
+connect_bd_net [get_bd_pins /DS_sha256/done] [get_bd_ports done]
 # create_bd_port -dir O -from 3 -to 0 led
 # connect_bd_net [get_bd_pins /DS_sha256/led] [get_bd_ports led]
 # create_bd_port -dir I -from 3 -to 0 sw
@@ -115,7 +117,9 @@ if { $ila == 1 } {
 }
 
 # IOs
-# array set ios {
+array set ios {
+ 	"done"		{ "M14" "LVCMOS33" }
+}
 # 	"sw[0]"		{ "G15" "LVCMOS33" }
 # 	"sw[1]"		{ "P15" "LVCMOS33" }
 # 	"sw[2]"		{ "W13" "LVCMOS33" }
@@ -125,16 +129,16 @@ if { $ila == 1 } {
 # 	"led[2]"	{ "G14" "LVCMOS33" }
 # 	"led[3]"	{ "D18" "LVCMOS33" }
 # 	"btn"		{ "R18" "LVCMOS33" }
-# }
-# foreach io [ array names ios ] {
-# 	set pin [ lindex $ios($io) 0 ]
-# 	set std [ lindex $ios($io) 1 ]
-# 	set_property package_pin $pin [get_ports $io]
-# 	set_property iostandard $std [get_ports [list $io]]
-# }
+foreach io [ array names ios ] {
+	set pin [ lindex $ios($io) 0 ]
+	set std [ lindex $ios($io) 1 ]
+	set_property package_pin $pin [get_ports $io]
+	set_property iostandard $std [get_ports [list $io]]
+}
 
 # Timing constraints
 set clock [get_clocks]
+set_false_path -from $clock -to [get_ports {done}]
 # set_false_path -from $clock -to [get_ports {led[*]}]
 # set_false_path -from [get_ports {btn sw[*]}] -to $clock
 

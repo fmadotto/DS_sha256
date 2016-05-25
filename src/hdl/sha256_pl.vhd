@@ -25,10 +25,10 @@ use work.axi_pkg.all;
 
 entity sha256_pl is
 	port (
-    clk  : in  std_ulogic; -- clock
-    rstn : in  std_ulogic; -- asynchronous active low reset
+    aclk  : in  std_logic; -- clock
+    aresetn : in  std_logic; -- asynchronous active low reset
 
-    done : out std_ulogic; -- done signal
+    done : out std_logic; -- done signal
     
 
     --------------------------------
@@ -148,7 +148,7 @@ begin
       address_size  => 4
     )
     port map (
-      clk      => clk,
+      clk      => aclk,
       rcs_n    => cu_M_j_memory_rcs_n_out,
       wcs_n    => M_j_memory_wcs_n_in,
       we_n     => M_j_memory_we_n_in,
@@ -160,15 +160,15 @@ begin
 
   pl_start_FF1 : entity work.start_FF
     port map (
-      clk   => clk,
+      clk   => aclk,
       d     => start_FF_start_in,
       start => start_FF_start_out
     );
 
   pl_control_unit1 : entity work.control_unit
     port map (
-      clk                 => clk,
-      rstn                => rstn,
+      clk                 => aclk,
+      rstn                => aresetn,
       start               => start_FF_start_out,
       done                => done,
       
@@ -190,16 +190,16 @@ begin
 
   pl_K_j_constants1 : entity work.K_j_constants
     port map (
-      clk      => clk,
-      rstn     => rstn,
+      clk      => aclk,
+      rstn     => aresetn,
       K_j_init => cu_K_j_init_out,
       K_j      => K_j_constants_out
     );
 
   pl_reg_H_minus_11 : entity work.reg_H_minus_1
     port map (
-      clk               => clk,
-      rstn              => rstn,
+      clk               => aclk,
+      rstn              => aresetn,
       reg_H_minus_1_en  => cu_reg_H_minus_1_en_out,
       reg_H_minus_1_sel => cu_reg_H_minus_1_sel_out,
       H_i_A             => dp_H_i_A_out,
@@ -223,8 +223,8 @@ begin
   pl_data_path1 : entity work.data_path
     port map (
       -- common ports
-      clk          => clk,
-      rstn         => rstn,
+      clk          => aclk,
+      rstn         => aresetn,
 
       -- expander input ports
       exp_sel1     => cu_exp_sel1_delayed_out,
@@ -254,7 +254,7 @@ begin
     );
 
   -- S0_AXI read-write requests
-  s0_axi_pr: process(clk, rstn)
+  s0_axi_pr: process(aclk, aresetn)
     -- idle: waiting for AXI master requests: when receiving write address and data valid (higher priority than read), perform the write, assert write address
     --       ready, write data ready and bvalid, go to w1, else, when receiving address read valid, perform the read, assert read address ready, read data valid
     --       and go to r1
@@ -263,13 +263,13 @@ begin
     type state_type is (idle, w1, r1);
     variable state: state_type;
   begin
-    if rstn = '0' then
+    if aresetn = '0' then
       s0_axi_s2m <= (rdata => (others => '0'), rresp => axi_resp_okay, bresp => axi_resp_okay, others => '0');
       M_j_memory_wcs_n_in <= '1';
       M_j_memory_we_n_in <= '1';
       start_FF_start_in <= '0';
       state := idle;
-    elsif clk'event and clk = '1' then
+    elsif aclk'event and aclk = '1' then
       -- s0_axi write and read
       case state is
         when idle =>
