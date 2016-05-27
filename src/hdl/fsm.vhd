@@ -64,6 +64,9 @@ begin
     elsif clk'event and clk = '1' then
       present_state.fsm_state <= next_state.fsm_state;
       present_state.counter <= next_state.counter;
+
+    else -- do nothing
+      null;
     end if;
   end process;
 
@@ -130,6 +133,9 @@ begin
 
           elsif present_state.counter = 2 then
             K_j_init           <= '0';
+
+          else -- do nothing
+            null;
           end if;
 
         elsif present_state.counter = 16 then
@@ -146,8 +152,19 @@ begin
           reg_H_minus_1_sel  <= '0';
           done <= '1';
 
+        else -- do nothing
+          null;
         end if;
-
+      
+      when others => -- if there is an unexpected condition treat it like if it were the idle state
+        exp_sel1           <= '0';
+        com_sel1           <= '1';
+        M_j_memory_rcs_n    <= '1';
+        M_j_memory_r_addr <= (others => 'Z');
+        reg_H_minus_1_en   <= '0';
+        reg_H_minus_1_sel  <= '0';
+        K_j_init           <= '0';
+        done <= '0';
     end case;
 
   end process;
