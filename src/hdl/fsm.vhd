@@ -57,6 +57,9 @@ begin
   
   state_reg : process (clk, rstn)
   begin
+
+    present_state <= (fsm_state => idle, counter => 0);
+
     if rstn = '0' then
       present_state.fsm_state <= idle;
       present_state.counter <= 0;
@@ -65,13 +68,13 @@ begin
       present_state.fsm_state <= next_state.fsm_state;
       present_state.counter <= next_state.counter;
 
-    else -- do nothing
-      null;
     end if;
   end process;
 
   next_state_logic : process (present_state, start)
   begin
+
+    next_state <= (fsm_state => idle, counter => 0);
 
     case present_state.fsm_state is
 
@@ -94,16 +97,24 @@ begin
 
         else
           next_state.counter <= present_state.counter + 1; -- otherwise we increment the counter
+          next_state.counter <= present_state.counter + 1; -- otherwise we increment the counter
         end if;
 
-      when others => -- if there is an unexpected condition we come back at the idle state
-        next_state.fsm_state <= idle;
     end case;
   end process;
 
 
   output_logic : process (present_state)
   begin
+
+    exp_sel1           <= '0';
+    com_sel1           <= '1';
+    M_j_memory_rcs_n    <= '1';
+    M_j_memory_r_addr <= (others => 'Z');
+    reg_H_minus_1_en   <= '0';
+    reg_H_minus_1_sel  <= '0';
+    K_j_init           <= '0';
+    done <= '0';
 
     case present_state.fsm_state is
 
@@ -156,15 +167,6 @@ begin
           null;
         end if;
       
-      when others => -- if there is an unexpected condition treat it like if it were the idle state
-        exp_sel1           <= '0';
-        com_sel1           <= '1';
-        M_j_memory_rcs_n    <= '1';
-        M_j_memory_r_addr <= (others => 'Z');
-        reg_H_minus_1_en   <= '0';
-        reg_H_minus_1_sel  <= '0';
-        K_j_init           <= '0';
-        done <= '0';
     end case;
 
   end process;

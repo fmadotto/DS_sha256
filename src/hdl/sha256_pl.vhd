@@ -25,10 +25,10 @@ use work.axi_pkg.all;
 
 entity sha256_pl is
 	port (
-    aclk  : in  std_logic; -- clock
+    aclk    : in  std_logic; -- clock
     aresetn : in  std_logic; -- asynchronous active low reset
 
-    done : out std_logic; -- done signal
+    done    : out std_logic; -- done signal
     
 
     --------------------------------
