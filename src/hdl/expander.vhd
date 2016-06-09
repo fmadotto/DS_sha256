@@ -281,7 +281,7 @@ begin
       n => 32
     )
     port map (
-      x    => exp_reg1_out,
+      x    => exp_reg16_out,
       y    => exp_sigma_01_out,
       z    => exp_reg7_out,
       sum  => exp_csa1_sum_out,
