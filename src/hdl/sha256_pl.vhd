@@ -310,7 +310,7 @@ begin
               if or_reduce(s0_axi_m2s.araddr(31 downto 7)) /= '0' then -- If unmapped address
                 s0_axi_s2m.rdata <= (others => '0');
                 s0_axi_s2m.rresp <= axi_resp_decerr;
-              elsif s0_axi_m2s.araddr(7 downto 0) > x"00" or s0_axi_m2s.araddr(7 downto 0) <= x"44" then -- If write-only Mj or start
+              elsif s0_axi_m2s.araddr(7 downto 0) > x"00" and s0_axi_m2s.araddr(7 downto 0) <= x"44" then -- If write-only Mj or start
                 s0_axi_s2m.rresp <= axi_resp_slverr;
               else
                 s0_axi_s2m.rresp <= axi_resp_okay;
@@ -398,4 +398,5 @@ begin
   s0_axi_bvalid      <= s0_axi_s2m.bvalid;
   s0_axi_bresp       <= std_logic_vector(s0_axi_s2m.bresp);
 
+  status <= x"aabbccdd";
 end architecture rtl;
