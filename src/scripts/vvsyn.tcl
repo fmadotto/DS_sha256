@@ -28,6 +28,7 @@ if { $argc == 3 } {
 }
 
 cd $builddir
+set rootdir $rootdir/src
 source $rootdir/scripts/ila.tcl
 
 ###################
