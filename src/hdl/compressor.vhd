@@ -118,7 +118,7 @@ begin
     port map (
       x    => com_csa2_sum_out,
       y    => com_csa2_cout_out,
-      z    => com_ch1_out,
+      z    => com_csigma_11_out,
       sum  => com_csa3_sum_out,
       cout => com_csa3_cout_out
     );
