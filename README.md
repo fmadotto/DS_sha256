@@ -6,7 +6,7 @@ This repository and its sub-directories contain the VHDL source code, VHDL simul
 All provided instructions are for a host computer running a GNU/Linux operating system and have been tested on a Ubuntu 14.04.4 LTS distribution. Porting to other GNU/Linux distributions should be very easy. If you are working under Microsoft Windows or Apple Mac OS X, installing a virtualisation framework and running an Ubuntu OS on a virtual machine is probably the easiest path.
 
 This work is based on the very interesting [SAB4Z project](https://gitlab.eurecom.fr/renaud.pacalet/sab4z) by Renaud Pacalet, who kindly helped us to successfully complete this design.
-If you have any problem when running this project, first check on the [SAB4Z project page](https://gitlab.eurecom.fr/renaud.pacalet/sab4z) for a solution: it is most likely that you will find useful information there.
+If you have any problem when running this project, first check on the [SAB4Z project page](https://gitlab.eurecom.fr/renaud.pacalet/sab4z) for a solution: it is likely that you will find useful information there.
 
 Please signal errors and send suggestions for improvements to federico.madotto (at) gmail.com.
 
@@ -75,6 +75,22 @@ Please signal errors and send suggestions for improvements to federico.madotto (
 
 
 ---
+
+
+| Address       | Mapping         | Description                                 | 
+| :------------ | :---------------| :------------------------------------------ | 
+| `0x4000_0000` | Status register | 32 bits read-only status register           | 
+| `0x4000_0004` | M0              | 32 bits write-only register                 | 
+| `0x4000_0008` | M1              | 32 bits write-only register                 | 
+| ...           | ...             | ...                                         | 
+| `0x4000_0040` | M15             | 32 bits write-only register                 | 
+| `0x4000_0044` | start           | 32 bits write-only register                 | 
+| `0x4000_0048` | HA(i-1)         | 32 bits read-only register                  | 
+| `0x4000_004c` | HB(i-1)         | 32 bits read-only register                  | 
+| ...           | ...             | ...                                         | 
+| `0x4000_0064` | HH(i-1)         | 32 bits read-only register                  | 
+
+
 
 ## <a name="setup"></a>Quick setup: how to run the project
 
