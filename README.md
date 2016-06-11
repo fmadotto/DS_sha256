@@ -85,10 +85,10 @@ Please signal errors and send suggestions for improvements to federico.madotto (
 | ...           | ...             | ...                                         | 
 | `0x4000_0040` | M15             | 32 bits write-only register                 | 
 | `0x4000_0044` | start           | 32 bits write-only register                 | 
-| `0x4000_0048` | HA(i-1)         | 32 bits read-only register                  | 
-| `0x4000_004c` | HB(i-1)         | 32 bits read-only register                  | 
+| `0x4000_0048` | H<sub>A</sub><sup>(i-1)</sup>       | 32 bits read-only register                  | 
+| `0x4000_004c` | H<sub>B</sub><sup>(i-1)</sup>       | 32 bits read-only register                  | 
 | ...           | ...             | ...                                         | 
-| `0x4000_0064` | HH(i-1)         | 32 bits read-only register                  | 
+| `0x4000_0064` | H<sub>H</sub><sup>(i-1)</sup>        | 32 bits read-only register                  | 
 
 
 
