@@ -1,22 +1,23 @@
 -- Copyright (c) 2016 Federico Madotto and Coline Doebelin
 -- federico.madotto (at) gmail.com
 -- coline.doebelin (at) gmail.com
--- https://github.com/fmadotto/DS_bitcoin_miner
+-- https://github.com/fmadotto/DS_sha256
 
--- sha256_pl.vhd is part of DS_bitcoin_miner.
+-- sha256_pl.vhd is part of DS_sha256.
 
--- DS_bitcoin_miner is free software: you can redistribute it and/or modify
+-- DS_sha256 is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
 -- the Free Software Foundation, either version 3 of the License, or
 -- (at your option) any later version.
 
--- DS_bitcoin_miner is distributed in the hope that it will be useful,
+-- DS_sha256 is distributed in the hope that it will be useful,
 -- but WITHOUT ANY WARRANTY; without even the implied warranty of
 -- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -- GNU General Public License for more details.
 
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 library ieee;
 use ieee.std_logic_1164.all; 	-- std_logic
