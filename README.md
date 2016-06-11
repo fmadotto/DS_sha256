@@ -90,7 +90,7 @@ The consequences of this high-level implementation, it is that it is not really 
 
 ---
 
-The AXI slave port `S0_AXI` is used to access the registers and memory implemented in the PL. The mapping of the S0_AXI address space is the following:
+The AXI slave port `S0_AXI` is used to access the registers and memory implemented in the PL. The mapping of the `S0_AXI` address space is the following:
 
 | Address       | Mapping         | Description                                 | 
 | :------------ | :---------------| :------------------------------------------ | 
@@ -115,7 +115,7 @@ By writing any 32-bit value at the `0x4000_0044` address, the PL will start the 
 
 The resulting hash will be the concatenation of the hexadecimal values found in the registers from `0x4000_0048` (most significant value) to `0x4000_0064` (least significant value).
 
-Accesses to the unmapped region of the S0_AXI address space will raise DECERR AXI errors. Write accesses to the read-only registers will raise SLVERR AXI errors.
+Accesses to the unmapped region of the `S0_AXI` address space will raise DECERR AXI errors. Write accesses to the read-only registers will raise SLVERR AXI errors.
 
 ---
 
