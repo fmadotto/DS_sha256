@@ -145,16 +145,20 @@ To launch:
 - login as root (no pw)
 
 - mount the SD card:
+
         mount /dev/mmcblk0p1 /mnt
 
 - check that the files are really there:
+
         ls -al /mnt
 
 
 - launch `/mnt/sha256.sh` with the required string and wait for the result
+
         /mnt/sha256.sh foobaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 
 - unmount the SD card and poweroff
+
         umount /mnt
         poweroff
