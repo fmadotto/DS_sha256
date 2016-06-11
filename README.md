@@ -33,46 +33,46 @@ DS_sha256 is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ## <a name="Content"></a>Content
-
-    .
-    ├── LICENSE                                    License (English version)
-    ├── sd_files                
-    │   ├── boot.bif         
-    │   ├── boot.bin
-    |   ├── devicetree.dtb
-    |   ├── fsbl.elf
-    |   ├── put_these_files_on_the_sd.tar.gz       Archive to extract on the SD card
-    |   ├── top_wrapper.bit
-    |   ├── u-boot.elf
-    |   ├── ulmage
-    │   └── uramdisk.image.gz
-    ├── src                     
-    │   ├── hdl                                    VHDL source code
-    │   │   ├── axi_pkg.vhd                        Package of AXI definitions
-    │   │   ├── M_j_memory.vhd                     Memory to store the values of the 512-bit message to hash
-    │   │   ├── sha256.vhd                         Implementation of the sha256 hash function
-    │   │   ├── sha256_pl.vhd                      Top-level entity
-    │   │   ├── sha256_tb.vhd                      Test bench for testing sha256.vhd
-    │   │   ├── start_FF.vhd                       Auto-resetting flip flop for the start signal
-    │   │   └── old_design                         VHDL sources of the old design. Use freely!
-    │   │       └── ...
-    │   ├── scripts                                Scripts
-    │   │   ├── boot.bif                           Zynq Boot Image description File
-    │   │   ├── dts.tcl                            TCL script for device tree generation
-    │   │   ├── fsbl.tcl                           TCL script for FSBL generation
-    │   │   ├── ila.tcl                            TCL script for ILA debug cores
-    │   │   ├── uEnv.txt                           Definitions of U-Boot environment variables
-    │   │   └── vvsyn.tcl                          Vivado TCL synthesis script
-    │   └── sh                 
-    │       └── sha256.sh
-    ├── Makefile                                   Main makefile
-    ├── README.md                                  This file
-    ├── images                                     Figures
-    |   └── sha256_diagram.png                         Zybo board
-    └── utils                   
-        ├── extract_warnings.sh                    Extracts the warnings found in ./build/vv/vivado.log
-        └── sha_test.py                            Python implementation of the sha256 function. For debugging.
-
+```
+ .
+ ├── LICENSE                                    License (English version)
+ ├── sd_files                
+ │   ├── boot.bif         
+ │   ├── boot.bin
+ |   ├── devicetree.dtb
+ |   ├── fsbl.elf
+ |   ├── put_these_files_on_the_sd.tar.gz       Archive to extract on the SD card
+ |   ├── top_wrapper.bit
+ |   ├── u-boot.elf
+ |   ├── ulmage
+ │   └── uramdisk.image.gz
+ ├── src                     
+ │   ├── hdl                                    VHDL source code
+ │   │   ├── axi_pkg.vhd                        Package of AXI definitions
+ │   │   ├── M_j_memory.vhd                     Memory to store the values of the 512-bit message to hash
+ │   │   ├── sha256.vhd                         Implementation of the sha256 hash function
+ │   │   ├── sha256_pl.vhd                      Top-level entity
+ │   │   ├── sha256_tb.vhd                      Test bench for testing sha256.vhd
+ │   │   ├── start_FF.vhd                       Auto-resetting flip flop for the start signal
+ │   │   └── old_design                         VHDL sources of the old design. Use freely!
+ │   │       └── ...
+ │   ├── scripts                                Scripts
+ │   │   ├── boot.bif                           Zynq Boot Image description File
+ │   │   ├── dts.tcl                            TCL script for device tree generation
+ │   │   ├── fsbl.tcl                           TCL script for FSBL generation
+ │   │   ├── ila.tcl                            TCL script for ILA debug cores
+ │   │   ├── uEnv.txt                           Definitions of U-Boot environment variables
+ │   │   └── vvsyn.tcl                          Vivado TCL synthesis script
+ │   └── sh                 
+ │       └── sha256.sh
+ ├── Makefile                                   Main makefile
+ ├── README.md                                  This file
+ ├── images                                     Figures
+ |   └── sha256_diagram.png                         Zybo board
+ └── utils                   
+     ├── extract_warnings.sh                    Extracts the warnings found in ./build/vv/vivado.log
+     └── sha_test.py                            Python implementation of the sha256 function. For debugging.
+```
 
 ## <a name="Description"></a>Description
 **DS_sha256** is an implementation of a hardware accelerator for performing the [sha256 hash function](http://csrc.nist.gov/publications/fips/fips180-2/fips180-2.pdf).
@@ -141,7 +141,7 @@ Since different prompts for different contexts are used, this will be the notati
 Download the archive, insert a MicroSD card in your card reader and unpack the archive to it:
 
       $ cd /tmp
-      $ wget https://github.com/fmadotto/DS_sha256/blob/master/sd_files/put_these_files_on_the_sd.tar.gz
+      $ wget https://github.com/fmadotto/DS_sha256/blob/master/sd_files/put_these_files_on_the_sd.tar.gz?raw=true -O put_these_files_on_the_sd.tar.gz
       $ tar -C <path-to-mounted-sd-card> -xf put_these_files_on_the_sd.tar.gz
       $ sync
       $ umount <path-to-mounted-sd-card>
@@ -154,49 +154,68 @@ Eject the MicroSD card.
 * Check the position of the jumper that selects the power source (USB or power adapter).
 * Check the position of the jumper that selects the boot medium (MicroSD card).
 * Power on. Two new character devices should show up (`/dev/ttyUSB0` and `/dev/ttyUSB1` by default) on the host PC. `/dev/ttyUSB1` is the one corresponding to the serial link with the Zybo.
-* Launch a terminal emulator (picocom, minicom...) and attach it to the new character device, with a 115200 baudrate, no flow control, no parity, 8 bits characters, no port reset and no port locking (`picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1`).
+* Launch a terminal emulator (picocom, minicom...) and attach it to the new character device, with a 115200 baudrate, no flow control, no parity, 8 bits characters, no port reset and no port locking (`picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1`). If you don't have a terminal emulator installed, install it with:
+```
+$ sudo apt-get intall picocom
+```
+
+
 * Wait until Linux boots, log in as root (no password needed) and start interacting with DS_sha256.
-
-
-      $ picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1
-      ...
-      Welcome to SAB4Z (c) Telecom ParisTech
-      sab4z login: root
-      Sab4z>
+```
+$ picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1
+...
+Welcome to SAB4Z (c) Telecom ParisTech
+sab4z login: root
+Sab4z>
+```
     
+---
+
+**Note**: If when you try to connect to the Zybo board with picocom you get the `FATAL: cannot open /dev/ttyUSB1: Permission denied` error, follow these instructions.
+You have to add a udev rule to create the character device with read/write permissions for all users when a FT2232H chip is discovered. In the same udev rule you will also create a symbolic link with meaningful name on the newly created character device:
+```
+$ cd /tmp
+$ sub='SUBSYSTEMS=="usb"'
+$ itf='ATTRS{interface}=="Digilent Adept USB Device"'
+$ ifn='ATTRS{bInterfaceNumber}=="01"'
+$ mod='MODE="0666"'
+$ sym='SYMLINK+="zybo%n"'
+$ echo "$sub, $itf, $ifn, $mod, $sym" > 99-ft2232h.rules
+$ sudo mv 99-ft2232h.rules /etc/udev/rules.d/
+$ sudo udevadm control --reload-rules
+```
+
 #### <a name="runonzybo"></a>Run DS_sha256 on the Zybo
 
 Mount the MicroSD card at `/mnt` on the Zybo:
+```
+Sab4z> mount /dev/mmcblk0p1 /mnt
+```
 
-
-      Sab4z> mount /dev/mmcblk0p1 /mnt
-
-Probably you will get some errors. Check that you see the files that you put at [this point](#copyfilesd) of the procedure:
-
-
-      Sab4z> ls -al /mnt
-
+You will probably get some errors at this point. Check that you see the files that you put at [this point](#copyfilesd) of the procedure:
+```
+Sab4z> ls -al /mnt
+```
 Launch the core program for performing the hash with your string as a parameter:
-
-
-      Sab4z> /mnt/sha256.sh foobaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
+```
+Sab4z> /mnt/sha256.sh foobaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+```
 Wait for the result to be printed on screen.
 
 #### <a name="RunHalt"></a>Unmounting the MicroSD card and halting the system
 
 When you have finished to play with DS_sha256, always unmount the MicroSD card and halt properly before switching the power off:
-
-      Sab4z> umount /mnt
-      Sab4z> poweroff
-      Sab4z> Stopping network...Saving random seed... done.
-      Stopping logging: OK
-      umount: devtmpfs busy - remounted read-only
-      umount: can't unmount /: Invalid argument
-      The system is going down NOW!
-      Sent SIGTERM to all processes
-      Sent SIGKILL to all processes
-      Requesting system poweroff
-      reboot: System halted
-
+```
+Sab4z> umount /mnt
+Sab4z> poweroff
+Sab4z> Stopping network...Saving random seed... done.
+Stopping logging: OK
+umount: devtmpfs busy - remounted read-only
+umount: can't unmount /: Invalid argument
+The system is going down NOW!
+Sent SIGTERM to all processes
+Sent SIGKILL to all processes
+Requesting system poweroff
+reboot: System halted
+```
 At this point you can switch the power off.
