@@ -10,6 +10,29 @@ If you have any problem when running this project, first check on the [SAB4Z pro
 
 Please signal errors and send suggestions for improvements to federico.madotto (at) gmail.com.
 
+
+## Table of content
+* [License](#License)
+* [Content](#Content)
+* [Description](#Description)
+* [Quick setup: how to run the project](#setup)
+    * [Notation](#notation)
+    * [Copy the files to the MicroSD card](#copyfilesd)
+    * [Run DS_sha256 on the Zybo](#runonzybo)
+    * [Halt the system](#RunHalt)
+
+## <a name="License"></a>License
+Copyright (c) 2016 Federico Madotto and Coline Doebelin
+Based on the [SAB4Z project](https://gitlab.eurecom.fr/renaud.pacalet/sab4z) by Renaud Pacalet at Telecom ParisTech.
+
+DS_sha256 is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+DS_sha256 is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+# <a name="Content"></a>Content
+
     .
     ├── LICENSE                                    License (English version)
     ├── sd_files                
@@ -17,7 +40,7 @@ Please signal errors and send suggestions for improvements to federico.madotto (
     │   ├── boot.bin
     |   ├── devicetree.dtb
     |   ├── fsbl.elf
-    |   ├── put_these_files_on_the_sd.tar.gz
+    |   ├── put_these_files_on_the_sd.tar.gz       Archive to extract on the SD card
     |   ├── top_wrapper.bit
     |   ├── u-boot.elf
     |   ├── ulmage
@@ -25,37 +48,13 @@ Please signal errors and send suggestions for improvements to federico.madotto (
     ├── src                     
     │   ├── hdl                                    VHDL source code
     │   │   ├── axi_pkg.vhd                        Package of AXI definitions
-    │   │   ├── M_j_memory.vhd
-    │   │   ├── sha256.vhd
-    │   │   ├── sha256_pl.vhd
-    │   │   ├── sha256_tb.vhd
-    │   │   ├── start_FF.vhd
-    │   │   └── old_design
-    │   │       ├── H_i_calculator.vhd
-    │   │       ├── K_j_constants.vhd
-    │   │       ├── M_j_memory_single_port.vhd
-    │   │       ├── M_j_memory_single_port_tb.vhd
-    │   │       ├── ch.vhd
-    │   │       ├── cla.vhd
-    │   │       ├── cla_tb.vhd
-    │   │       ├── compressor.vhd
-    │   │       ├── control_unit.vhd
-    │   │       ├── csa.vhd
-    │   │       ├── csigma_0.vhd
-    │   │       ├── csigma_1.vhd
-    │   │       ├── data_path.vhd
-    │   │       ├── expander.vhd
-    │   │       ├── expander_tb.vhd
-    │   │       ├── fsm.vhd
-    │   │       ├── fsm_tb.vhd
-    │   │       ├── full_adder.vhd
-    │   │       ├── maj.vhd
-    │   │       ├── mux_2_to_1.vhd
-    │   │       ├── reg_H_minus_1.vhd
-    │   │       ├── register.vhd
-    │   │       ├── sha256_pl_old.vhd
-    │   │       ├── sigma_0.vhd
-    │   │       └── sigma_1.vhd
+    │   │   ├── M_j_memory.vhd                     Memory to store the values of the 512-bit message to hash
+    │   │   ├── sha256.vhd                         Implementation of the sha256 hash function
+    │   │   ├── sha256_pl.vhd                      Top-level entity
+    │   │   ├── sha256_tb.vhd                      Test bench for testing sha256.vhd
+    │   │   ├── start_FF.vhd                       Auto-resetting flip flop for the start signal
+    │   │   └── old_design                         VHDL sources of the old design. Use freely!
+    │   │       └── ...
     │   ├── scripts                                Scripts
     │   │   ├── boot.bif                           Zynq Boot Image description File
     │   │   ├── dts.tcl                            TCL script for device tree generation
@@ -70,9 +69,8 @@ Please signal errors and send suggestions for improvements to federico.madotto (
     ├── images                                     Figures
     |   └── sha256_diagram.png                         Zybo board
     └── utils                   
-        ├── copy_new_pl_to_sd.sh
-        ├── extra_warnings.sh
-        └── sha_test.py
+        ├── extract_warnings.sh                    Extracts the warnings found in ./build/vv/vivado.log
+        └── sha_test.py                            Python implementation of the sha256 function. For debugging.
 
 
 
