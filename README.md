@@ -73,6 +73,46 @@ Please signal errors and send suggestions for improvements to federico.madotto (
         └── sha_test.py
 
 
+
+---
+
+## <a name="setup"></a>Quick setup: how to run the project
+
+Since different prompts for different contexts are used, this will be the notation used in this README:
+
+* `$ ` is the shell prompt of a regular user on the host PC.
+* `XILINX $ ` is the prompt of a regular user on the host PC *with the Xilinx software environment variables set*.
+* `# ` is the shell prompt of the *root* user on the host PC..
+* `Sab4z> ` is the shell prompt of the root user on the Zybo board.
+
+Download the archive, insert a MicroSD card in your card reader and unpack the archive to it:
+
+    $ cd /tmp
+    $ wget https://github.com/fmadotto/DS_sha256/blob/master/sd_files/put_these_files_on_the_sd.tar.gz
+    $ tar -C <path-to-mounted-sd-card> -xf put_these_files_on_the_sd.tar.gz
+    $ sync
+    $ umount <path-to-mounted-sd-card>
+
+Eject the MicroSD card.
+
+# <a name="Run"></a>Test SAB4Z on the Zybo
+
+* Plug the MicroSD card in the Zybo and connect the USB cable.
+* Check the position of the jumper that selects the power source (USB or power adapter).
+* Check the position of the jumper that selects the boot medium (MicroSD card).
+* Power on. Two new [character devices](#GlossaryFt2232hCharDev) should show up (`/dev/ttyUSB0` and `/dev/ttyUSB1` by default) on the host PC. `/dev/ttyUSB1` is teh one corresponding to the serial link with the Zybo.
+* Launch a [terminal emulator](#GlossaryTerminalEmulator) (picocom, minicom...) and attach it to the new [character device](#GlossaryFt2232hCharDev), with a 115200 baudrate, no flow control, no parity, 8 bits characters, no port reset and no port locking: `picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1`.
+* Wait until [Linux](#GlossaryLinuxKernel) boots, log in as root (there is no password) and start interacting with SAB4Z.
+
+<!-- -->
+    Host> picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1
+    ...
+    Welcome to SAB4Z (c) Telecom ParisTech
+    sab4z login: root
+    Sab4z>
+
+
+
 To launch:
 
 - Extract the ./sd_files/put_these_files_on_the_sd.tar.gz archive and put the files on the SD card of the Zybo
