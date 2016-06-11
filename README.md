@@ -184,7 +184,10 @@ $ echo "$sub, $itf, $ifn, $mod, $sym" > 99-ft2232h.rules
 $ sudo mv 99-ft2232h.rules /etc/udev/rules.d/
 $ sudo udevadm control --reload-rules
 ```
-
+At this point **power the Zybo off** and power it on again. Then retry to connect to the Zybo with:
+```
+$ picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1
+```
 #### <a name="runonzybo"></a>Run DS_sha256 on the Zybo
 
 Mount the MicroSD card at `/mnt` on the Zybo:
