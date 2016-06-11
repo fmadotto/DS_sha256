@@ -80,10 +80,10 @@ Please signal errors and send suggestions for improvements to federico.madotto (
 | Address       | Mapping         | Description                                 | 
 | :------------ | :---------------| :------------------------------------------ | 
 | `0x4000_0000` | Status register | 32 bits read-only status register           | 
-| `0x4000_0004` | M0              | 32 bits write-only register                 | 
-| `0x4000_0008` | M1              | 32 bits write-only register                 | 
+| `0x4000_0004` | M<sub>0</sub>              | 32 bits write-only register                 | 
+| `0x4000_0008` | M<sub>1</sub>              | 32 bits write-only register                 | 
 | ...           | ...             | ...                                         | 
-| `0x4000_0040` | M15             | 32 bits write-only register                 | 
+| `0x4000_0040` | M<sub>15</sub>             | 32 bits write-only register                 | 
 | `0x4000_0044` | start           | 32 bits write-only register                 | 
 | `0x4000_0048` | H<sub>A</sub><sup>(i-1)</sup>       | 32 bits read-only register                  | 
 | `0x4000_004c` | H<sub>B</sub><sup>(i-1)</sup>       | 32 bits read-only register                  | 
