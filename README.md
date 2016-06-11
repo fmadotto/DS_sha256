@@ -195,19 +195,22 @@ Mount the MicroSD card at `/mnt` on the Zybo:
 Sab4z> mount /dev/mmcblk0p1 /mnt
 ```
 
-You will probably get some errors at this point. Check that you see the files that you put at [this point](#copyfilesd) of the procedure:
+You will probably get some errors at this point (`Volume was not properly unmounted...`). Check that you see the files that you put at [this point](#copyfilesd) of the procedure:
 ```
 Sab4z> ls -al /mnt
 ```
-Launch the core program for performing the hash with your string as a parameter:
+If everything seems ok, there is no need to worry about the errors.
+Launch the core program for performing the hash with your string as a parameter and wait for the result to be printed on screen:
 ```
-Sab4z> /mnt/sha256.sh foobaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Sab4z> /mnt/sha256.sh foobar
+...
+The final hash value is
+C3AB8FF13720E8AD9047DD39466B3C8974E592C2FA383D4A3960714CAEF0C4F2
 ```
-Wait for the result to be printed on screen.
 
 #### <a name="RunHalt"></a>Unmounting the MicroSD card and halting the system
 
-When you have finished to play with DS_sha256, always unmount the MicroSD card and halt properly before switching the power off:
+When you finish to play with DS_sha256, always unmount the MicroSD card and halt the system properly before switching the power off:
 ```
 Sab4z> umount /mnt
 Sab4z> poweroff
