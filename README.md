@@ -6,9 +6,9 @@ This repository and its sub-directories contain the VHDL source code, VHDL simul
 All provided instructions are for a host computer running a GNU/Linux operating system and have been tested on a Ubuntu 14.04.4 LTS distribution. Porting to other GNU/Linux distributions should be very easy. If you are working under Microsoft Windows or Apple Mac OS X, installing a virtualisation framework and running an Ubuntu OS on a virtual machine is probably the easiest path.
 
 This work is based on the very interesting [SAB4Z project](https://gitlab.eurecom.fr/renaud.pacalet/sab4z) by Renaud Pacalet, who kindly helped us to successfully complete this design.
+If you have any problem when running this project, first check on the [SAB4Z project page](https://gitlab.eurecom.fr/renaud.pacalet/sab4z) for a solution: it is likely that you will find useful information there.
 
 Please signal errors and send suggestions for improvements to federico.madotto (at) gmail.com.
-
 
     .
     ├── LICENSE                                    License (English version)
@@ -78,12 +78,16 @@ Please signal errors and send suggestions for improvements to federico.madotto (
 
 ## <a name="setup"></a>Quick setup: how to run the project
 
+#### <a name="notation"></a>Notation
+
 Since different prompts for different contexts are used, this will be the notation used in this README:
 
 * `$ ` is the shell prompt of a regular user on the host PC.
 * `XILINX $ ` is the prompt of a regular user on the host PC *with the Xilinx software environment variables set*.
 * `# ` is the shell prompt of the *root* user on the host PC..
 * `Sab4z> ` is the shell prompt of the root user on the Zybo board.
+
+#### <a name="copyfilesd"></a>Copy the files to the MicroSD card
 
 Download the archive, insert a MicroSD card in your card reader and unpack the archive to it:
 
@@ -95,22 +99,23 @@ Download the archive, insert a MicroSD card in your card reader and unpack the a
 
 Eject the MicroSD card.
 
-# <a name="Run"></a>Test SAB4Z on the Zybo
+#### <a name="runonzybo"></a>Run DS_sha256 on the Zybo
 
 * Plug the MicroSD card in the Zybo and connect the USB cable.
 * Check the position of the jumper that selects the power source (USB or power adapter).
 * Check the position of the jumper that selects the boot medium (MicroSD card).
-* Power on. Two new [character devices](#GlossaryFt2232hCharDev) should show up (`/dev/ttyUSB0` and `/dev/ttyUSB1` by default) on the host PC. `/dev/ttyUSB1` is teh one corresponding to the serial link with the Zybo.
-* Launch a [terminal emulator](#GlossaryTerminalEmulator) (picocom, minicom...) and attach it to the new [character device](#GlossaryFt2232hCharDev), with a 115200 baudrate, no flow control, no parity, 8 bits characters, no port reset and no port locking: `picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1`.
-* Wait until [Linux](#GlossaryLinuxKernel) boots, log in as root (there is no password) and start interacting with SAB4Z.
+* Power on. Two new character devices should show up (`/dev/ttyUSB0` and `/dev/ttyUSB1` by default) on the host PC. `/dev/ttyUSB1` is the one corresponding to the serial link with the Zybo.
+* Launch a terminal emulator (picocom, minicom...) and attach it to the new character device, with a 115200 baudrate, no flow control, no parity, 8 bits characters, no port reset and no port locking (`picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1`).
+* Wait until Linux boots, log in as root (no password needed) and start interacting with DS_sha256.
 
-<!-- -->
     Host> picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1
     ...
     Welcome to SAB4Z (c) Telecom ParisTech
     sab4z login: root
     Sab4z>
-
+    
+    
+.............
 
 
 To launch:
