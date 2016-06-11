@@ -48,8 +48,6 @@ do
   message+=$binrep
 done
 
-echo $message
-
 length=${#message}
 
 if [[ $length -gt 447 ]]; then
@@ -111,7 +109,7 @@ done
 echo ""
 echo "[ ] Sending the start command"
 echo ""
-echo devmem 0x40000044 32 0x00000000
+devmem 0x40000044 32 0x00000000
 
 sleep 1
 
