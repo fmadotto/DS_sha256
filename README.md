@@ -162,3 +162,18 @@ To launch:
 
         umount /mnt
         poweroff
+
+#### <a name="RunHalt"></a>Halt the system
+
+Always halt properly before switching the power off:
+
+    Sab4z> poweroff
+    Sab4z> Stopping network...Saving random seed... done.
+    Stopping logging: OK
+    umount: devtmpfs busy - remounted read-only
+    umount: can't unmount /: Invalid argument
+    The system is going down NOW!
+    Sent SIGTERM to all processes
+    Sent SIGKILL to all processes
+    Requesting system poweroff
+    reboot: System halted
