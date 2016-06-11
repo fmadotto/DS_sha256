@@ -67,6 +67,8 @@ Please signal errors and send suggestions for improvements to federico.madotto (
     │       └── sha256.sh
     ├── Makefile                                   Main makefile
     ├── README.md                                  This file
+    ├── images                                     Figures
+    |   └── trucdessin.png                         Zybo board
     └── utils                   
         ├── copy_new_pl_to_sd.sh
         ├── extra_warnings.sh
@@ -90,6 +92,8 @@ Please signal errors and send suggestions for improvements to federico.madotto (
 | ...           | ...             | ...                                         | 
 | `0x4000_0064` | H<sub>H</sub><sup>(i-1)</sup>        | 32 bits read-only register                  | 
 
+
+![sha256 on a Zybo board](images/trucdessin.png)
 
 
 ## <a name="setup"></a>Quick setup: how to run the project
