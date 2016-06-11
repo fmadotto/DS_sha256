@@ -10,34 +10,37 @@ This work is based on the very interesting [SAB4Z project](https://gitlab.eureco
 Please signal errors and send suggestions for improvements to federico.madotto (at) gmail.com.
 
     .
-    ├── LICENSE                 License (English version)
-    ├── sd_files                VHDL source code
-    │   ├── boot.bif         Package of AXI definitions
-    │   ├── boot.bin
-    |.. ├── devicetree.dtb
-    |.. ├── fsbl.elf
-    |.. ├── put_these_files_on_the_sd.tar.gz
-    |.. ├── top_wrapper.bit
-    |.. ├── u-boot.elf
-    |.. ├── ulmage
-    │   └── uramdisk.image.gz
-    ├── src                     Figures
-    │   ├── hdl                     VHDL source code
-    │   │   ├── axi_pkg.vhd         Package of AXI definitions
-    │   │   ├── debouncer.vhd       Debouncer-resynchronizer
-    
-    │   ├── scripts                 Scripts
-    │   │   ├── boot.bif            Zynq Boot Image description File
-    │   │   ├── dts.tcl             TCL script for device tree generation
-    │   │   ├── fsbl.tcl            TCL script for FSBL generation
-    │   │   ├── ila.tcl             TCL script for ILA debug cores
-    │   │   ├── uEnv.txt            Definitions of U-Boot environment variables
-    │   │   └── vvsyn.tcl           Vivado TCL synthesis script
-    │   └── sh                 
-    │     . └── sha256.sh
-    ├── Makefile                Main makefile
-    ├── README.md               This file
-    └── utils                   Scripts
+    ├── LICENSE                    License (English version)
+    ├── sd_files                
+    │   ├── boot.bif         
+    │   ├── boot.bin
+    |   ├── devicetree.dtb
+    |   ├── fsbl.elf
+    |   ├── put_these_files_on_the_sd.tar.gz
+    |   ├── top_wrapper.bit
+    |   ├── u-boot.elf
+    |   ├── ulmage
+    │   └── uramdisk.image.gz
+    ├── src                     
+    │   ├── hdl                     VHDL source code
+    │   │   ├── axi_pkg.vhd         Package of AXI definitions
+    │   │   ├── M_j_memory.vhd
+    │   │   ├── sha256.vhd
+    │   │   ├── sha256_pl.vhd
+    │   │   ├── sha256_tb.vhd
+    │   │   └── start_FF.vhd
+    │   ├── scripts                 Scripts
+    │   │   ├── boot.bif            Zynq Boot Image description File
+    │   │   ├── dts.tcl             TCL script for device tree generation
+    │   │   ├── fsbl.tcl            TCL script for FSBL generation
+    │   │   ├── ila.tcl             TCL script for ILA debug cores
+    │   │   ├── uEnv.txt            Definitions of U-Boot environment variables
+    │   │   └── vvsyn.tcl           Vivado TCL synthesis script
+    │   └── sh                 
+    │       └── sha256.sh
+    ├── Makefile                    Main makefile
+    ├── README.md                   This file
+    └── utils                   
         ├── copy_new_pl_to_sd.sh
         ├── extra_warnings.sh
         └── sha_test.py
