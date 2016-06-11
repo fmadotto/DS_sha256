@@ -24,6 +24,7 @@ Please signal errors and send suggestions for improvements to federico.madotto (
 
 ## <a name="License"></a>License
 Copyright (c) 2016 Federico Madotto and Coline Doebelin
+
 Based on the [SAB4Z project](https://gitlab.eurecom.fr/renaud.pacalet/sab4z) by Renaud Pacalet at Telecom ParisTech.
 
 DS_sha256 is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -84,7 +85,7 @@ The figure below represents DS_sha256 mapped in the Programmable Logic (PL) of t
 
 ---
 
-**Note**: The current design for the PL of DS_sha256 is written at a very high level. This is due to the fact that the previous design, based on [this IEEE paper](http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=1269207) and implemented in the `src/hdl/old_design` sub-directory was too cumbersome to debug and the time for doing it was too little. This is because of the choice of implementing such a design at a *very* low level.
+**Note**: The current design for the PL of DS_sha256 is written at a high level (yet perfectly synthesisable). This is due to the fact that the previous design, based on [this IEEE paper](http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=1269207) and implemented in the `src/hdl/old_design` sub-directory was too cumbersome to debug and the time for doing it was too little. This is because of the choice of implementing such a design at a *very* low level.
 If you want to correct any bugs or propose solutions regarding the "old_design" you are free and welcome to contact us.
 The consequences of this high-level implementation, it is that it is not really efficient.
 
