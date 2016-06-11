@@ -3,7 +3,7 @@
 -- coline.doebelin (at) gmail.com
 -- https://github.com/fmadotto/DS_bitcoin_miner
 
--- sha256_pl.vhd is part of DS_bitcoin_miner.
+-- sha256_pl_old.vhd is part of DS_bitcoin_miner.
 
 -- DS_bitcoin_miner is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -23,11 +23,13 @@ use ieee.std_logic_1164.all; 	-- std_logic
 use ieee.numeric_std.all; 		-- to_integer()
 use work.axi_pkg.all;
 
-entity sha256_pl is
+entity sha256_pl_old is
 	port (
     aclk    : in  std_logic; -- clock
-    aresetn : in  std_logic; -- asynchronous active low reset    
+    aresetn : in  std_logic; -- asynchronous active low reset
+
     done    : out std_logic; -- done signal
+    
 
     --------------------------------
     -- AXI lite slave port s0_axi --
@@ -67,9 +69,9 @@ entity sha256_pl is
     s0_axi_bresp:   out std_logic_vector(1 downto 0);
     s0_axi_bvalid:  out std_logic
 	);
-end entity sha256_pl;
+end entity sha256_pl_old;
 
-architecture rtl of sha256_pl is
+architecture rtl of sha256_pl_old is
 
   -- Or reduction of std_ulogic_vector
   function or_reduce(v: std_ulogic_vector) return std_ulogic is
@@ -101,23 +103,42 @@ architecture rtl of sha256_pl is
   signal M_j_memory_data_in   : std_ulogic_vector(31 downto 0);
   signal M_j_memory_data_out  : std_ulogic_vector(31 downto 0);
 
+  
   -- start_FF
   signal start_FF_start_in  : std_ulogic;
   signal start_FF_start_out : std_ulogic;
-  
-  -- sha256
-  signal M_j_memory_rcs_n_out : std_ulogic;
-  signal M_j_memory_r_addr_out : std_ulogic_vector(3 downto 0);
-  signal done_out : std_ulogic;
-  signal H_i_A_out,
-         H_i_B_out,
-         H_i_C_out,
-         H_i_D_out,
-         H_i_E_out,
-         H_i_F_out,
-         H_i_G_out,
-         H_i_H_out : std_ulogic_vector(31 downto 0);
 
+  -- control_unit
+  signal cu_exp_sel1_delayed_out    : std_ulogic; 
+  signal cu_com_sel1_delayed_out    : std_ulogic; 
+  signal cu_M_j_memory_rcs_n_out    : std_ulogic; 
+  signal cu_M_j_memory_r_addr_out   : std_ulogic_vector(3 downto 0);
+  signal cu_reg_H_minus_1_en_out    : std_ulogic; 
+  signal cu_reg_H_minus_1_sel_out   : std_ulogic; 
+  signal cu_K_j_init_out            : std_ulogic;
+
+  -- K_j_constants
+  signal K_j_constants_out : std_ulogic_vector(31 downto 0);
+  
+  -- data_path
+  signal dp_H_i_A_out,
+         dp_H_i_B_out,
+         dp_H_i_C_out,
+         dp_H_i_D_out,
+         dp_H_i_E_out,
+         dp_H_i_F_out,
+         dp_H_i_G_out,
+         dp_H_i_H_out : std_ulogic_vector(31 downto 0);
+
+  -- reg_H_minus_1
+  signal reg_H_iminus1_A_out,
+         reg_H_iminus1_B_out,
+         reg_H_iminus1_C_out,
+         reg_H_iminus1_D_out,
+         reg_H_iminus1_E_out,
+         reg_H_iminus1_F_out,
+         reg_H_iminus1_G_out,
+         reg_H_iminus1_H_out : std_ulogic_vector(31 downto 0);
 
 begin
 
@@ -128,10 +149,10 @@ begin
     )
     port map (
       clk      => aclk,
-      rcs_n    => M_j_memory_rcs_n_out,
+      rcs_n    => cu_M_j_memory_rcs_n_out,
       wcs_n    => M_j_memory_wcs_n_in,
       we_n     => M_j_memory_we_n_in,
-      r_addr   => M_j_memory_r_addr_out,
+      r_addr   => cu_M_j_memory_r_addr_out,
       w_addr   => M_j_memory_w_addr_in,
       data_in  => M_j_memory_data_in,
       data_out => M_j_memory_data_out
@@ -144,25 +165,93 @@ begin
       start => start_FF_start_out
     );
 
-  pl_sha256 : entity work.sha256
+  pl_control_unit1 : entity work.control_unit
     port map (
-      clk   => aclk,
-      rstn  => aresetn,
-      start => start_FF_start_out,
-      M_i_j => M_j_memory_data_out,
-      M_j_memory_rcs_n => M_j_memory_rcs_n_out,
-      M_j_memory_r_addr => M_j_memory_r_addr_out,
-      H_i_A => H_i_A_out,
-      H_i_B => H_i_B_out,
-      H_i_C => H_i_C_out,
-      H_i_D => H_i_D_out,
-      H_i_E => H_i_E_out,
-      H_i_F => H_i_F_out,
-      H_i_G => H_i_G_out,
-      H_i_H => H_i_H_out,
-      done  => done_out
+      clk                 => aclk,
+      rstn                => aresetn,
+      start               => start_FF_start_out,
+      done                => done,
+      
+      -- data path ports
+      exp_sel1_delayed    => cu_exp_sel1_delayed_out,
+      com_sel1_delayed    => cu_com_sel1_delayed_out,
+
+      -- M_j_memory ports
+      M_j_memory_rcs_n    => cu_M_j_memory_rcs_n_out,
+      M_j_memory_r_addr   => cu_M_j_memory_r_addr_out,
+
+      -- reg_H_minus_1 ports
+      reg_H_minus_1_en    => cu_reg_H_minus_1_en_out,
+      reg_H_minus_1_sel   => cu_reg_H_minus_1_sel_out,
+      
+      -- K_j_constants ports
+      K_j_init            => cu_K_j_init_out
     );
 
+  pl_K_j_constants1 : entity work.K_j_constants
+    port map (
+      clk      => aclk,
+      rstn     => aresetn,
+      K_j_init => cu_K_j_init_out,
+      K_j      => K_j_constants_out
+    );
+
+  pl_reg_H_minus_11 : entity work.reg_H_minus_1
+    port map (
+      clk               => aclk,
+      rstn              => aresetn,
+      reg_H_minus_1_en  => cu_reg_H_minus_1_en_out,
+      reg_H_minus_1_sel => cu_reg_H_minus_1_sel_out,
+      H_i_A             => dp_H_i_A_out,
+      H_i_B             => dp_H_i_B_out,
+      H_i_C             => dp_H_i_C_out,
+      H_i_D             => dp_H_i_D_out,
+      H_i_E             => dp_H_i_E_out,
+      H_i_F             => dp_H_i_F_out,
+      H_i_G             => dp_H_i_G_out,
+      H_i_H             => dp_H_i_H_out,
+      H_iminus1_A       => reg_H_iminus1_A_out,
+      H_iminus1_B       => reg_H_iminus1_B_out,
+      H_iminus1_C       => reg_H_iminus1_C_out,
+      H_iminus1_D       => reg_H_iminus1_D_out,
+      H_iminus1_E       => reg_H_iminus1_E_out,
+      H_iminus1_F       => reg_H_iminus1_F_out,
+      H_iminus1_G       => reg_H_iminus1_G_out,
+      H_iminus1_H       => reg_H_iminus1_H_out
+    );
+
+  pl_data_path1 : entity work.data_path
+    port map (
+      -- common ports
+      clk          => aclk,
+      rstn         => aresetn,
+
+      -- expander input ports
+      exp_sel1     => cu_exp_sel1_delayed_out,
+      M_i_j        => M_j_memory_data_out,
+
+      -- compressor input ports
+      com_sel1     => cu_com_sel1_delayed_out,
+      K_j          => K_j_constants_out,
+      H_iminus1_A  => reg_H_iminus1_A_out,
+      H_iminus1_B  => reg_H_iminus1_B_out,
+      H_iminus1_C  => reg_H_iminus1_C_out,
+      H_iminus1_D  => reg_H_iminus1_D_out,
+      H_iminus1_E  => reg_H_iminus1_E_out,
+      H_iminus1_F  => reg_H_iminus1_F_out,
+      H_iminus1_G  => reg_H_iminus1_G_out,
+      H_iminus1_H  => reg_H_iminus1_H_out,
+
+      -- output ports
+      H_i_A        => dp_H_i_A_out,
+      H_i_B        => dp_H_i_B_out,
+      H_i_C        => dp_H_i_C_out,
+      H_i_D        => dp_H_i_D_out,
+      H_i_E        => dp_H_i_E_out,
+      H_i_F        => dp_H_i_F_out,
+      H_i_G        => dp_H_i_G_out,
+      H_i_H        => dp_H_i_H_out
+    );
 
   -- S0_AXI read-write requests
   s0_axi_pr: process(aclk, aresetn)
@@ -232,21 +321,21 @@ begin
 
                   -- H(i-1)
                   when x"48" =>
-                    s0_axi_s2m.rdata <= H_i_A_out;
+                    s0_axi_s2m.rdata <= reg_H_iminus1_A_out;
                   when x"4c" =>
-                    s0_axi_s2m.rdata <= H_i_B_out;
+                    s0_axi_s2m.rdata <= reg_H_iminus1_B_out;
                   when x"50" =>
-                    s0_axi_s2m.rdata <= H_i_C_out;
+                    s0_axi_s2m.rdata <= reg_H_iminus1_C_out;
                   when x"54" =>
-                    s0_axi_s2m.rdata <= H_i_D_out;
+                    s0_axi_s2m.rdata <= reg_H_iminus1_D_out;
                   when x"58" =>
-                    s0_axi_s2m.rdata <= H_i_E_out;
+                    s0_axi_s2m.rdata <= reg_H_iminus1_E_out;
                   when x"5c" =>
-                    s0_axi_s2m.rdata <= H_i_F_out;
+                    s0_axi_s2m.rdata <= reg_H_iminus1_F_out;
                   when x"60" =>
-                    s0_axi_s2m.rdata <= H_i_G_out;
+                    s0_axi_s2m.rdata <= reg_H_iminus1_G_out;
                   when x"64" =>
-                    s0_axi_s2m.rdata <= H_i_H_out;
+                    s0_axi_s2m.rdata <= reg_H_iminus1_H_out;
 
                   when others => 
                     s0_axi_s2m.rdata <= x"00000000";
@@ -309,8 +398,5 @@ begin
   s0_axi_bvalid      <= s0_axi_s2m.bvalid;
   s0_axi_bresp       <= std_logic_vector(s0_axi_s2m.bresp);
 
-  status(0) <= done_out;
-  done <= done_out;
-
-
+  status <= x"aabbccdd";
 end architecture rtl;

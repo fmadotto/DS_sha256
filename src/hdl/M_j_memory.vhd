@@ -49,8 +49,8 @@ begin
   process(clk)
   begin
     if clk'event and clk = '1' then
-      if wcs_n = '1' then
-        if we_n = '1' then
+      if wcs_n = '0' then
+        if we_n = '0' then
           RAM(to_integer(unsigned(w_addr))) <= data_in;
         end if;
       end if;
@@ -60,7 +60,7 @@ begin
   process(clk)
   begin
     if clk'event and clk = '1' then
-      if rcs_n = '1' then
+      if rcs_n = '0' then
         data_out <= RAM(to_integer(unsigned(r_addr)));
       end if;
     end if;
