@@ -1,12 +1,12 @@
 # DS_sha256
 #### sha256 HW accelerator - DS project - Spring 2016
-###### Copyright (c) 2016 Federico Madotto and Coline Doebelin
 
 This repository and its sub-directories contain the VHDL source code, VHDL simulation environment, simulation, synthesis scripts and software for DS_sha256, a simple design example for the Xilinx Zynq core. It was specifically designed for the Zybo board by Digilent.
 All provided instructions are for a host computer running a GNU/Linux operating system and have been tested on a Ubuntu 14.04.4 LTS distribution. Porting to other GNU/Linux distributions should be very easy. If you are working under Microsoft Windows or Apple Mac OS X, installing a virtualisation framework and running an Ubuntu OS on a virtual machine is probably the easiest path.
+To run the project on a Zybo board, *you don't need to clone this repository*, just follow the [instructions](#setup).
 
 This work is based on the very interesting [SAB4Z project](https://gitlab.eurecom.fr/renaud.pacalet/sab4z) by Renaud Pacalet, who kindly helped us to successfully complete this design.
-If you have any problem when running this project, first check on the [SAB4Z project page](https://gitlab.eurecom.fr/renaud.pacalet/sab4z) for a solution: it is likely that you will find useful information there.
+If you have any problem when running this project, first check on the [SAB4Z project page](https://gitlab.eurecom.fr/renaud.pacalet/sab4z) for a solution: it is likely that you will find useful information there. In addition, in this repository there are all the files you need to build your own copy of DS_sha256. To do so, follow the instructions on the [SAB4Z project page](https://gitlab.eurecom.fr/renaud.pacalet/sab4z).
 
 Please signal errors and send suggestions for improvements to federico.madotto (at) gmail.com.
 
