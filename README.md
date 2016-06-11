@@ -124,11 +124,11 @@ Eject the MicroSD card.
 * Launch a terminal emulator (picocom, minicom...) and attach it to the new character device, with a 115200 baudrate, no flow control, no parity, 8 bits characters, no port reset and no port locking (`picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1`).
 * Wait until Linux boots, log in as root (no password needed) and start interacting with DS_sha256.
 
-    Host> picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1
-    ...
-    Welcome to SAB4Z (c) Telecom ParisTech
-    sab4z login: root
-    Sab4z>
+        Host> picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1
+        ...
+        Welcome to SAB4Z (c) Telecom ParisTech
+        sab4z login: root
+        Sab4z>
     
     
 .............
@@ -136,25 +136,25 @@ Eject the MicroSD card.
 
 To launch:
 
-- Extract the ./sd_files/put_these_files_on_the_sd.tar.gz archive and put the files on the SD card of the Zybo
+- Extract the `./sd_files/put_these_files_on_the_sd.tar.gz` archive and put the files on the SD card of the Zybo
 
 - Connect the Zybo to your computer and launch a terminal to speak with the board
 
-picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1
+        picocom -b115200 -fn -pn -d8 -r -l /dev/ttyUSB1
 
 - login as root (no pw)
 
 - mount the SD card:
-mount /dev/mmcblk0p1 /mnt
+        mount /dev/mmcblk0p1 /mnt
 
 - check that the files are really there:
-ls -al /mnt
+        ls -al /mnt
 
 
-- launch /mnt/sha256.sh with the required string and wait for the result
-/mnt/sha256.sh foobaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+- launch `/mnt/sha256.sh` with the required string and wait for the result
+        /mnt/sha256.sh foobaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 
 - unmount the SD card and poweroff
-umount /mnt
-poweroff
+        umount /mnt
+        poweroff
