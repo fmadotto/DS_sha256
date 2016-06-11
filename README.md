@@ -9,8 +9,9 @@ This work is based on the very interesting [SAB4Z project](https://gitlab.eureco
 
 Please signal errors and send suggestions for improvements to federico.madotto (at) gmail.com.
 
+
     .
-    ├── LICENSE                    License (English version)
+    ├── LICENSE                                    License (English version)
     ├── sd_files                
     │   ├── boot.bif         
     │   ├── boot.bin
@@ -22,28 +23,55 @@ Please signal errors and send suggestions for improvements to federico.madotto (
     |   ├── ulmage
     │   └── uramdisk.image.gz
     ├── src                     
-    │   ├── hdl                     VHDL source code
-    │   │   ├── axi_pkg.vhd         Package of AXI definitions
+    │   ├── hdl                                    VHDL source code
+    │   │   ├── axi_pkg.vhd                        Package of AXI definitions
     │   │   ├── M_j_memory.vhd
     │   │   ├── sha256.vhd
     │   │   ├── sha256_pl.vhd
     │   │   ├── sha256_tb.vhd
-    │   │   └── start_FF.vhd
-    │   ├── scripts                 Scripts
-    │   │   ├── boot.bif            Zynq Boot Image description File
-    │   │   ├── dts.tcl             TCL script for device tree generation
-    │   │   ├── fsbl.tcl            TCL script for FSBL generation
-    │   │   ├── ila.tcl             TCL script for ILA debug cores
-    │   │   ├── uEnv.txt            Definitions of U-Boot environment variables
-    │   │   └── vvsyn.tcl           Vivado TCL synthesis script
+    │   │   ├── start_FF.vhd
+    │   │   └── old_design
+    │   │       ├── H_i_calculator.vhd
+    │   │       ├── K_j_constants.vhd
+    │   │       ├── M_j_memory_single_port.vhd
+    │   │       ├── M_j_memory_single_port_tb.vhd
+    │   │       ├── ch.vhd
+    │   │       ├── cla.vhd
+    │   │       ├── cla_tb.vhd
+    │   │       ├── compressor.vhd
+    │   │       ├── control_unit.vhd
+    │   │       ├── csa.vhd
+    │   │       ├── csigma_0.vhd
+    │   │       ├── csigma_1.vhd
+    │   │       ├── data_path.vhd
+    │   │       ├── expander.vhd
+    │   │       ├── expander_tb.vhd
+    │   │       ├── fsm.vhd
+    │   │       ├── fsm_tb.vhd
+    │   │       ├── full_adder.vhd
+    │   │       ├── maj.vhd
+    │   │       ├── mux_2_to_1.vhd
+    │   │       ├── reg_H_minus_1.vhd
+    │   │       ├── register.vhd
+    │   │       ├── sha256_pl_old.vhd
+    │   │       ├── sigma_0.vhd
+    │   │       └── sigma_1.vhd
+    │   ├── scripts                                Scripts
+    │   │   ├── boot.bif                           Zynq Boot Image description File
+    │   │   ├── dts.tcl                            TCL script for device tree generation
+    │   │   ├── fsbl.tcl                           TCL script for FSBL generation
+    │   │   ├── ila.tcl                            TCL script for ILA debug cores
+    │   │   ├── uEnv.txt                           Definitions of U-Boot environment variables
+    │   │   └── vvsyn.tcl                          Vivado TCL synthesis script
     │   └── sh                 
     │       └── sha256.sh
-    ├── Makefile                    Main makefile
-    ├── README.md                   This file
+    ├── Makefile                                   Main makefile
+    ├── README.md                                  This file
     └── utils                   
-        ├── copy_new_pl_to_sd.sh
-        ├── extra_warnings.sh
-        └── sha_test.py
+        ├── copy_new_pl_to_sd.sh
+        ├── extra_warnings.sh
+        └── sha_test.py
+
 
 To launch:
 
