@@ -11,7 +11,7 @@ If you have any problem when running this project, first check on the [SAB4Z pro
 Please signal errors and send suggestions for improvements to federico.madotto (at) gmail.com.
 
 
-## Table of content
+## <a name="toc"></a>Table of content
 * [License](#License)
 * [Content](#Content)
 * [Description](#Description)
@@ -35,6 +35,8 @@ DS_sha256 is free software: you can redistribute it and/or modify it under the t
 DS_sha256 is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+[[^ top ^]](#toc)
 
 ## <a name="Content"></a>Content
 ```
@@ -77,6 +79,9 @@ You should have received a copy of the GNU General Public License along with thi
      ├── extract_warnings.sh                    Extracts the warnings found in ./build/vv/vivado.log
      └── sha_test.py                            Python implementation of the sha256 function. For debugging.
 ```
+
+[[^ top ^]](#toc)
+
 
 ## <a name="Description"></a>Description
 **DS_sha256** is an implementation of a hardware accelerator for performing the [sha256 hash function](http://csrc.nist.gov/publications/fips/fips180-2/fips180-2.pdf).
@@ -129,6 +134,9 @@ To know how to use it, read [Quick setup: how to run the project](#setup).
 ---
 
 A Python implementation (`utils/sha_test.py`), equivalent to the implemented hardware implementation, has been written to manually check the correctness of the programmable logic while in execution.
+
+[[^ top ^]](#toc)
+
 
 
 ## <a name="setup"></a>Quick setup: how to run the project
@@ -229,6 +237,10 @@ Requesting system poweroff
 reboot: System halted
 ```
 At this point you can switch the power off.
+
+[[^ top ^]](#toc)
+
+
 
 ## <a name="performance"></a>Performance Report
 
