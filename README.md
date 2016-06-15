@@ -21,6 +21,9 @@ Please signal errors and send suggestions for improvements to federico.madotto (
     * [Interact with the Zybo](#interactwithzybo)
     * [Run DS_sha256 on the Zybo](#runonzybo)
     * [Halt the system](#RunHalt)
+* [Performance check](#performance)
+    * [Utilisation Report](#perf_utilisation)
+    * [Timing Report](#perf_timing)
 
 ## <a name="License"></a>License
 Copyright (c) 2016 Federico Madotto and Coline Doebelin
@@ -226,3 +229,30 @@ Requesting system poweroff
 reboot: System halted
 ```
 At this point you can switch the power off.
+
+## <a name="performance"></a>Performance Report
+
+The system currently runs at a frequency of 50 MHz and the logic is able to return a result in *67 clock cycles* after the start signal arrives. The time taken to store the 512-bit input in the memory through the AXI port must be added to this in order to compute a total time of execution.
+
+In the two following sections there are a few details about the utilisation of the on-board logic and the timing performance, extracted from the `build/vv/vivado.log` file generated after the synthesis of the Programmable Logic.
+
+#### <a name="perf_utilisation"></a>Utilisation Report
+
+The resources used after the "Place Design" phase seem reasonable for the design, with a detailed report below:
+
+|          Site Type         | Used | Fixed | Available | Util% |
+|----------------------------|------|-------|-----------|-------|
+| Slice LUTs                 | 4123 |     0 |     17600 | 23.43 |
+|   LUT as Logic             | 4047 |     0 |     17600 | 22.99 |
+|   LUT as Memory            |   76 |     0 |      6000 |  1.27 |
+|     LUT as Distributed RAM |   24 |     0 |           |       |
+|     LUT as Shift Register  |   52 |     0 |           |       |
+| Slice Registers            | 3307 |     0 |     35200 |  9.39 |
+|   Register as Flip Flop    | 3307 |     0 |     35200 |  9.39 |
+|   Register as Latch        |    0 |     0 |     35200 |  0.00 |
+| F7 Muxes                   |  576 |     0 |      8800 |  6.55 |
+| F8 Muxes                   |   11 |     0 |      4400 |  0.25 |
+
+
+#### <a name="perf_timing"></a>Timing Report
+By looking at the timing report after the "Route Design" phase, it can be seen that all the timing specifications are met, and that the worst negative slack (WNS) is of 0.490 ns. This means that -theoretically- the clock frequency of the system can be slightly increased, even if it would be safer not to push the system to its limit.
