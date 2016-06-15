@@ -268,3 +268,5 @@ The resources used after the "Place Design" phase seem reasonable for the design
 
 #### <a name="perf_timing"></a>Timing Report
 By looking at the timing report after the "Route Design" phase, it can be seen that all the timing specifications are met, and that the worst negative slack (WNS) is of 0.490 ns. This means that -theoretically- the clock frequency of the system can be slightly increased, even if it would be safer not to push the system to its limit.
+
+[[^ top ^]](#toc)
